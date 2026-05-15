@@ -1,0 +1,36 @@
+:root {
+  --do-primary: #00a3ff;
+  --do-primary-light-400: #00a3ff;
+  --do-sky-500: #0090e6;
+  --do-primary-strong: #0090e6;
+  --do-primary-deep: #006bab;
+  --do-primary-700: #006bab;
+  --do-primary-light-100: rgba(0, 163, 255, 0.14);
+  --do-text: #334155;
+  --do-text-secondary: #64748b;
+  --do-text-muted: #98a2b3;
+  --do-surface-ground: transparent;
+  --do-surface-light: #f2f4f7;
+  --do-card: #ffffff;
+  --do-bars-bg: rgba(255, 255, 255, 0.1);
+  --do-light-sky-40: rgba(0, 163, 255, 0.4);
+
+  /* Ilova orqa foni — public/images/blue-background.png */
+  --do-app-bg-image: url(/images/blue-background.png);
+  --do-bg-scrim: rgba(8, 14, 32, 0.26);
+
+  /* Chap panel — shaffof shisha (fon orqasidan ko‘rinadi) */
+  --do-sidebar-glass-bg: rgba(42, 36, 72, 0.38);
+  --do-sidebar-glass-blur: 24px;
+  --do-header-h: 64px;
+  --do-sidebar-w: 280px;
+  --do-rail-w: 56px;
+  --do-radius: 6px;
+  --do-radius-panel: 12px;
+  --do-pad: 16px;
+  --do-gap: 12px;
+
+  --do-font:
+    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'SF Pro Display',
+    'SF Pro Display Regular', sans-serif;
+}

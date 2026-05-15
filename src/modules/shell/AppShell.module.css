@@ -1,0 +1,212 @@
+/* Wrapper: kontent + o‘ng rail. Kontent: chap panel to‘liq balandlik, header faqat o‘ng ustunda. */
+
+.root {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* d-app-loader / p-toast joylari — hozircha maxsus ko‘rinishsiz (Angular bilan DOM mosligi) */
+.appLoader {
+  position: absolute;
+  inset: 0;
+  z-index: 5500;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.toastRegion {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 5000;
+  max-width: min(420px, 100vw - 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background-color: #141028;
+  background-image: var(--do-app-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--do-bg-scrim);
+  pointer-events: none;
+}
+
+.frame {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobil: panel ochiq — workspace ustidan qorong‘u qatlam */
+.sidebarBackdrop {
+  display: none;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--do-rail-w);
+  grid-template-rows: 1fr;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+/* Original/1: div.content.close-sidebar — chap panel yopiq; Original/2: faqat .content — ochiq.
+   Global `close-sidebar` class AppShell.tsx dan beriladi (stylesheet’da alohida qoida yo‘q). */
+/* Chap panel butun balandlikda; yuqori panel faqat sidebar o‘ngidan boshlanadi (L/T kesishma) */
+.content {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-rows: var(--do-header-h, 64px) minmax(0, 1fr);
+  grid-template-areas:
+    'aside header'
+    'aside workspace';
+  min-width: 0;
+  min-height: 0;
+  transition: grid-template-columns 0.58s cubic-bezier(0.16, 1, 0.32, 1);
+}
+
+.content[data-collapsed] {
+  grid-template-columns: 0fr minmax(0, 1fr);
+}
+
+/* Ekran kengligi breakpointni kesganda: grid va sidebar CSS qoidalari bir vaqtda almashadi — transition “cho‘zilish”ni oldini olish */
+.content[data-layout-transition='off'] {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content {
+    transition-duration: 0.01ms;
+  }
+}
+
+.workspaceMain {
+  grid-area: workspace;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: transparent;
+  box-sizing: border-box;
+  padding-block: 8px;
+  padding-inline: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dataError {
+  margin: auto;
+  max-width: 420px;
+  padding: 16px 20px;
+  border-radius: var(--do-radius-panel, 12px);
+  background: #fef3f2;
+  border: 1px solid #fecdca;
+  color: #b42318;
+  font-size: 0.9375rem;
+}
+
+.dataLoading {
+  margin: auto;
+  padding: 24px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 0.9375rem;
+}
+
+.rightMenu {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  min-height: 0;
+}
+
+@media (max-width: 960px) {
+  .wrapper {
+    --do-header-row-h: calc(var(--do-header-h, 64px) + env(safe-area-inset-top, 0px));
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .sidebarBackdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    top: var(--do-header-row-h);
+    z-index: 3400;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: rgba(15, 23, 42, 0.5);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .rightMenu {
+    grid-column: 1;
+    grid-row: 1;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    pointer-events: none;
+    min-height: 0;
+    align-self: stretch;
+    justify-self: end;
+  }
+
+  /*
+   * Mobil: doim 2 ustun (L) — yopiqda chap 0fr (content transition bilan silliq yopiladi).
+   * Eslatma: .content[data-collapsed] global qoidada ham 0fr + bir xil areas.
+   */
+  .content {
+    grid-template-columns: 0fr minmax(0, 1fr);
+    grid-template-rows: var(--do-header-row-h) minmax(0, 1fr);
+    grid-template-areas:
+      'aside header'
+      'aside workspace';
+    transition: grid-template-columns 0.65s cubic-bezier(0.14, 1, 0.28, 1);
+  }
+
+  /*
+   * Panel ochiq: L-shakl — aside ikki qator bo‘ylab, header faqat o‘ng ustunda (chap panel ustiga chiqmaydi).
+   * Drawer ~70vw gacha: o‘ngdagi header uchun minimal kenglik saqlanadi.
+   */
+  .content[data-sidebar='open'] {
+    grid-template-columns: minmax(0, min(280px, 70vw)) minmax(0, 1fr);
+    grid-template-rows: var(--do-header-row-h) minmax(0, 1fr);
+    grid-template-areas:
+      'aside header'
+      'aside workspace';
+  }
+
+  /* Backdrop .content ichida emas — :has() bilan wrapper bo‘yicha yashirish */
+  .wrapper:has(.content[data-sidebar='open']) > .sidebarBackdrop {
+    display: none;
+  }
+
+  .workspaceMain {
+    position: relative;
+    z-index: 0;
+  }
+}

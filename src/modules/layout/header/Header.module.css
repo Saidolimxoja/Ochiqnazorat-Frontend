@@ -1,0 +1,485 @@
+/* d-header: bg-bars, h-14; kontent o‘ng chet-i RightRail bilan bir qatorda (wrapper grid) */
+.header {
+  grid-area: header;
+  height: var(--do-header-h, 64px);
+  min-height: var(--do-header-h, 64px);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 8px 20px 8px 12px;
+  background: var(--do-bars-bg);
+  backdrop-filter: blur(22px) saturate(1.15);
+  -webkit-backdrop-filter: blur(22px) saturate(1.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+.header,
+.header * {
+  color: #fff;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 4px;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+  min-width: 0;
+  margin-left: auto;
+}
+
+.burger:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.burgerLine {
+  display: block;
+  height: 2px;
+  width: 20px;
+  background: #fff;
+  border-radius: 1px;
+}
+
+/* Original/1 (close-sidebar): o‘rta chiziq translate(-7px); Original/2 (ochiq): (0,0) */
+.burgerLineMiddle {
+  transition: transform 0.2s ease;
+}
+
+.burgerLineMiddleOpen {
+  transform: translateX(0);
+}
+
+.burgerLineMiddleClosed {
+  transform: translateX(-7px);
+}
+
+/* Original: soat va keyingi bloklar orasida gap-4 */
+.headerTools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.utilityIcons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.profileCluster {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.clock {
+  margin: 0;
+  font-size: 2.25rem;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.iconBtn {
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  opacity: 0.88;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.headerGlyph {
+  display: block;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+/* Hover animatsiyasi faqat SVG ichida (tugmani siljitmasdan / kattalashtirmasdan) */
+.headerIconPhoto path {
+  transition:
+    stroke-width 0.22s ease,
+    opacity 0.2s ease;
+}
+
+.iconBtn:hover .headerIconPhoto path {
+  stroke-width: 2;
+}
+
+.headerIconEye path:first-of-type {
+  transform-origin: 12px 12px;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.iconBtn:hover .headerIconEye path:first-of-type {
+  transform: scale(1.18);
+}
+
+.headerIconEye path:last-of-type {
+  transition: opacity 0.22s ease;
+}
+
+.iconBtn:hover .headerIconEye path:last-of-type {
+  opacity: 0.92;
+}
+
+.headerIconExpand path,
+.headerIconMicrosoft path {
+  transition: opacity 0.24s ease;
+}
+
+.iconBtn:hover .headerIconExpand path[opacity='0.5'],
+.iconBtn:hover .headerIconMicrosoft path[opacity='0.5'] {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burgerLineMiddle {
+    transition-duration: 0.01ms;
+  }
+
+  .headerIconPhoto path,
+  .headerIconEye path,
+  .headerIconExpand path,
+  .headerIconMicrosoft path {
+    transition-duration: 0.01ms;
+  }
+
+  .iconBtn:hover .headerIconEye path:first-of-type {
+    transform: none;
+  }
+}
+
+.iconBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 1;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 0 12px 0 4px;
+  height: auto;
+  min-height: 40px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.user:hover {
+  opacity: 0.85;
+}
+
+.avatarImg {
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.userName {
+  font-size: 0.875rem;
+  line-height: 1.16;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.langChip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  margin: 0;
+  border-radius: 999px;
+  background: rgba(0, 163, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 0.875rem;
+  line-height: 1.16;
+  font-weight: 600;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.langChip:hover {
+  background: rgba(0, 163, 255, 0.45);
+}
+
+.langLabel {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.langChevron {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.88;
+}
+
+.flag {
+  border-radius: 4px;
+}
+
+@media (max-width: 1100px) {
+  .clock {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .header {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    height: auto;
+    min-height: calc(var(--do-header-h, 64px) + env(safe-area-inset-top, 0px));
+    padding: max(8px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) 8px
+      max(10px, env(safe-area-inset-left, 0px));
+    /* Yuqori panel ostida qolmasin (mobil fixed drawer) */
+    position: relative;
+    z-index: 4000;
+  }
+
+  .left {
+    gap: 8px;
+    grid-column: 1;
+  }
+
+  /* .right ichidagi bolalar (.clock, .mobileProfileWrap) grid ustunlarida alohida — profil hech qachon siqilib ketmaydi */
+  .right {
+    display: contents;
+  }
+
+  .clock {
+    grid-column: 2;
+    justify-self: center;
+    min-width: 0;
+    font-size: 1.375rem;
+  }
+
+  .mobileProfileWrap {
+    grid-column: 3;
+    justify-self: end;
+    display: block;
+  }
+
+  .headerTools {
+    gap: 10px;
+  }
+
+  .profileCluster {
+    gap: 8px;
+  }
+
+  .user {
+    min-height: 36px;
+    padding: 0 8px 0 4px;
+  }
+
+  /* Chap panel ochiq + tor o‘ng ustun: elementlar ustma-ust tushmasin */
+  .header[data-compact-tray] {
+    gap: 6px;
+    padding-left: max(6px, env(safe-area-inset-left, 0px));
+    padding-right: max(8px, env(safe-area-inset-right, 0px));
+  }
+
+  .header[data-compact-tray] .left {
+    gap: 4px;
+  }
+
+  .header[data-compact-tray] .clock {
+    font-size: 1.05rem;
+    letter-spacing: -0.03em;
+  }
+
+  .header[data-compact-tray] .burger {
+    padding: 4px 2px;
+  }
+
+  .header[data-compact-tray] .burgerLine {
+    width: 18px;
+  }
+
+  .header[data-compact-tray] .profileMenuTrigger {
+    padding: 2px 6px 2px 2px;
+    gap: 4px;
+  }
+
+  .header[data-compact-tray] .profileMenuTrigger .avatarImg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .header[data-compact-tray] .profileMenuTriggerChevron {
+    width: 14px;
+    height: 14px;
+  }
+
+  .headerToolsDesk {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .clock {
+    font-size: 1.25rem;
+    justify-self: center;
+  }
+
+  .header[data-compact-tray] .clock {
+    font-size: 0.95rem;
+  }
+
+  .iconBtn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px;
+  }
+
+  .headerGlyph {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Mobil profil trigger: keng ekranda yashirin */
+.mobileProfileWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+@media (min-width: 961px) {
+  .mobileProfileWrap {
+    display: none !important;
+  }
+}
+
+.profileMenuTrigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 4px 10px 4px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.profileMenuTrigger:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.profileMenuTrigger:focus-visible {
+  outline: 2px solid rgba(54, 191, 250, 0.85);
+  outline-offset: 2px;
+}
+
+.profileMenuTriggerChevron {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  opacity: 0.88;
+}
+
+.profileMenu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 4100;
+  min-width: min(92vw, 300px);
+  max-width: min(92vw, 360px);
+  padding: 12px;
+  box-sizing: border-box;
+  /* --do-bars-bg juda shaffof; kontent arqasidan ko‘rinmasin */
+  background: rgba(22, 18, 42, 0.92);
+  backdrop-filter: blur(22px) saturate(1.15);
+  -webkit-backdrop-filter: blur(22px) saturate(1.15);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.45);
+  max-height: min(70vh, 520px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.profileMenuUser {
+  margin: 0;
+}
+
+.userMenuFull {
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: flex-start;
+}
+
+.profileMenuSection {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.profileMenu .utilityIcons {
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.profileMenu .langChip {
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+}

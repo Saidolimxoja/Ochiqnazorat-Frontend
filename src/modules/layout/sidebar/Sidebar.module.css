@@ -1,0 +1,409 @@
+.sidebarHost {
+  grid-area: aside;
+  grid-row: 1 / -1;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  align-self: stretch;
+}
+
+.aside[data-layout-transition='off'] {
+  transition: none !important;
+}
+
+.aside {
+  min-height: 0;
+  height: 100%;
+  width: 280px;
+  max-width: 280px;
+  flex-shrink: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: var(--do-sidebar-glass-bg);
+  color: #fff;
+  backdrop-filter: blur(var(--do-sidebar-glass-blur, 28px)) saturate(1.2);
+  -webkit-backdrop-filter: blur(var(--do-sidebar-glass-blur, 28px)) saturate(1.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.52s cubic-bezier(0.16, 1, 0.32, 1);
+}
+
+.aside > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 961px) {
+  .sidebarHost[data-collapsed] .aside {
+    transform: translate3d(-100%, 0, 0);
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aside {
+    transition-duration: 0.01ms;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.brandRow {
+  flex-shrink: 0;
+  padding: 16px 14px;
+}
+
+.brandLink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
+  border-radius: 10px;
+  outline-offset: 2px;
+  transition: opacity 0.15s ease;
+}
+
+.brandLogo {
+  display: block;
+  height: 28px;
+  width: auto;
+  max-width: min(100%, 251px);
+  object-fit: contain;
+  object-position: left center;
+}
+
+.brandLink:hover {
+  opacity: 0.92;
+}
+
+.brandLink:focus-visible {
+  outline: 2px solid rgba(54, 191, 250, 0.85);
+}
+
+.nav {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 8px 24px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.nav::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+.sectionTitle {
+  margin: 0 8px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.sectionTitle:first-of-type {
+  margin-top: 0;
+}
+
+.panelWrap {
+  margin-bottom: 2px;
+}
+
+.panelInner {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.panelInner[data-open] {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.panelHead:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.panelHeadMain {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.panelChevron {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.subList {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0 8px 4px 0;
+  margin-left: 1.25rem;
+  border-left: 1px solid rgba(208, 213, 221, 0.31);
+}
+
+.subLink {
+  display: block;
+  width: 100%;
+  margin: 2px 0;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.subLink:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.subLink[data-active] {
+  background: rgba(255, 255, 255, 0.2);
+  font-weight: 500;
+}
+
+.navGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: none;
+  border-left: 4px solid transparent;
+  background: transparent;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.navLinkSpread {
+  justify-content: space-between;
+}
+
+.navLinkStart {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.linkChevron {
+  flex-shrink: 0;
+  opacity: 0.65;
+}
+
+.navLink:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.navLink[data-active] {
+  background: rgba(0, 163, 255, 0.2);
+  border-left-color: var(--do-primary-light-400);
+  font-weight: 500;
+}
+
+.navIcon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.bottom {
+  padding: 12px 8px 16px;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tasksWrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tasksHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  order: 2;
+  margin-top: 0;
+  padding: 10px 16px 10px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #2b7abf;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.15);
+  transition:
+    background 0.15s ease,
+    filter 0.15s ease;
+}
+
+.tasksHead:hover {
+  background: #3278c9;
+  filter: brightness(1.03);
+}
+
+.tasksHeadMain {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.tasksTitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.tasksChevron {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: #fff;
+  opacity: 0.95;
+}
+
+.tasksSubList {
+  list-style: none;
+  order: 1;
+  margin: 0 0 10px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tasksSubItem {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  transition:
+    background 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.tasksSubItem:hover {
+  background: #f8fafc;
+}
+
+.tasksSubItem[data-active] {
+  box-shadow:
+    0 0 0 2px var(--do-primary, #00a3ff),
+    0 2px 8px rgba(15, 23, 42, 0.08);
+  background: #f0f9ff;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Mobil: qopqoqroq fon + yengil blur — ustun torayganda backdrop "kulrang" dog‘ bermaydi */
+@media (max-width: 960px) {
+  .aside {
+    background: rgba(30, 26, 54, 0.94);
+    backdrop-filter: blur(14px) saturate(1.15);
+    -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  }
+
+  .sidebarHost[data-collapsed] {
+    pointer-events: none;
+  }
+
+  .sidebarHost[data-collapsed] .aside {
+    pointer-events: none;
+  }
+
+  .sidebarHost:not([data-collapsed]) {
+    grid-area: aside;
+    display: block;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
+    align-self: stretch;
+    pointer-events: auto;
+    z-index: auto;
+  }
+
+  .sidebarHost:not([data-collapsed]) .aside {
+    position: relative;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    min-height: 0;
+    transform: none;
+    z-index: auto;
+    isolation: auto;
+    pointer-events: auto;
+    box-shadow: none;
+  }
+}
