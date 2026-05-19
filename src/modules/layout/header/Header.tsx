@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { DEFAULT_SESSION_DISPLAY } from '@/shared/config/session-display'
 import { useEscapeKey, usePointerOutsideMany } from '@/shared/hooks'
 import { IconChevron, IconEye, IconExpand, IconMicrosoft, IconPhoto } from '@/shared/ui/icons'
+import { signOut } from '@/shared/auth/auth.service'
 
 import { HeaderUserAvatar } from './HeaderUserAvatar'
 import styles from './Header.module.css'
@@ -20,8 +22,14 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
   const [profileMenuOpen, setProfileMenuOpen] = useState(false)
   const mobileProfileRef = useRef<HTMLDivElement>(null)
   const menuId = useId()
+  const router = useRouter()
 
   const closeProfileMenu = useCallback(() => setProfileMenuOpen(false), [])
+
+  const handleLogout = useCallback(() => {
+    signOut()
+    router.push('/login')
+  }, [router])
 
   useEffect(() => {
     const t = window.setInterval(() => setNow(new Date()), 1000)
@@ -145,6 +153,16 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
               </div>
               <div className={styles.profileMenuSection}>{utilityRow}</div>
               <div className={styles.profileMenuSection}>{langBlock}</div>
+              <div className={styles.profileMenuSection}>
+                <button
+                  type="button"
+                  className={styles.logoutBtn}
+                  onClick={handleLogout}
+                  aria-label="Chiqish"
+                >
+                  Chiqish
+                </button>
+              </div>
             </div>
           ) : null}
         </div>
