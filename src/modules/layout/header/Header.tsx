@@ -73,7 +73,11 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
   )
 
   const userBlock = (
-    <button type="button" className={styles.user}>
+    <button
+      type="button"
+      className={styles.user}
+      onClick={() => setProfileMenuOpen((o) => !o)}
+    >
       <HeaderUserAvatar className={styles.avatarImg} size={24} />
       <span className={styles.userName}>{DEFAULT_SESSION_DISPLAY.displayName}</span>
     </button>
@@ -116,8 +120,29 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
         <div className={`${styles.headerTools} ${styles.headerToolsDesk}`}>
           {utilityRow}
           <div className={styles.profileCluster}>
-            {userBlock}
-            {langBlock}
+            <div className={styles.desktopProfileWrap} ref={mobileProfileRef}>
+              {userBlock}
+              {profileMenuOpen ? (
+                <div
+                  className={styles.profileMenu}
+                  id={menuId}
+                  role="dialog"
+                  aria-label="Profil va sozlamalar"
+                >
+                  <div className={styles.profileMenuSection}>{langBlock}</div>
+                  <div className={styles.profileMenuSection}>
+                    <button
+                      type="button"
+                      className={styles.logoutBtn}
+                      onClick={handleLogout}
+                      aria-label="Chiqish"
+                    >
+                      Chiqish
+                    </button>
+                  </div>
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
 

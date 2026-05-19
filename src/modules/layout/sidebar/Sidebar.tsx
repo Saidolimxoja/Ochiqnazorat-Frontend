@@ -9,7 +9,6 @@ import styles from './Sidebar.module.css'
 const TASK_PANEL_ID = 'tasks'
 
 const TASK_MODULES: { id: string; label: string }[] = [
-  { id: 'task-topshiriqlar', label: 'Topshiriqlar' },
   { id: 'task-edo', label: 'EDO' },
   { id: 'task-kadr', label: 'Kadr' },
   { id: 'task-byudjet', label: 'Byudjet' },

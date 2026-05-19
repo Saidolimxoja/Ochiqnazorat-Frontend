@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { EconomicEdoUsage } from '@/modules/economic-edo/EconomicEdoUsage'
 import { HomeDashboard } from '@/modules/home'
 import { Header } from '@/modules/layout/header'
-import { RightRail } from '@/modules/layout/right-rail'
 import { Sidebar } from '@/modules/layout/sidebar'
 import { Workspace } from '@/modules/workspace'
 import { useDocuments } from '@/shared/hooks'
@@ -132,7 +131,6 @@ export function AppShell() {
               onNavChange={setNavId}
             />
           </div>
-          <RightRail className={styles.rightMenu} />
         </div>
       </div>
     </div>

@@ -505,3 +505,14 @@
   background: rgba(239, 68, 68, 0.3);
 }
 
+.desktopProfileWrap {
+  position: relative;
+}
+
+.desktopProfileWrap .profileMenu {
+  top: calc(100% + 8px);
+  left: auto;
+  right: 0;
+}
+
+
