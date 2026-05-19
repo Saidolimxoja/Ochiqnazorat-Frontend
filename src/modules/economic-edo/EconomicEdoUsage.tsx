@@ -43,7 +43,7 @@ export function EconomicEdoUsage() {
               <input
                 type="search"
                 className={styles.searchInput}
-                placeholder="Filter"
+                placeholder="Filtr"
                 autoComplete="off"
               />
               <IconSearch className={styles.searchGlyph} />

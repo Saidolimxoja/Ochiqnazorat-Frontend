@@ -452,9 +452,33 @@
 }
 
 .detailMeta {
-  margin: 0 0 20px;
+  margin: 0 0 12px;
   font-size: 13px;
   color: var(--do-text-muted);
+}
+
+.detailMetaList {
+  margin: 0 0 20px;
+  padding: 0;
+}
+
+.detailMetaRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 8px 16px;
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.detailMetaRow dt {
+  margin: 0;
+  color: var(--do-text-muted);
+  font-weight: 500;
+}
+
+.detailMetaRow dd {
+  margin: 0;
+  color: var(--do-text-secondary);
 }
 
 .detailBody {
@@ -505,6 +529,12 @@
   font-size: 14px;
   background: rgba(255, 255, 255, 0.85);
   cursor: pointer;
+}
+
+.btnPrimary:disabled,
+.btnGhost:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .btnGhost:hover {

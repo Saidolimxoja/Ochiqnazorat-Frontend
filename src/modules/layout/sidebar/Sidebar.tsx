@@ -1,5 +1,7 @@
-import { startTransition, useCallback, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+'use client'
+
+import { startTransition, useCallback, useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { SIDEBAR_ENTRIES, SIDEBAR_STATS, type SidebarEntry } from './sidebar-entries'
 import { IconChevron } from '@/shared/ui/icons'
 import styles from './Sidebar.module.css'
@@ -39,18 +41,22 @@ export function Sidebar({ collapsed, layoutTransition = true, navActiveId, onNav
     if (navActiveId == null) return null
     return parentPanelIdForLeaf(navActiveId) ?? null
   })
+  const openPanelIdRef = useRef(openPanelId)
+
+  useEffect(() => {
+    openPanelIdRef.current = openPanelId
+  }, [openPanelId])
 
   const togglePanel = useCallback(
     (id: string) => {
-      setOpenPanelId((cur) => {
-        if (cur === id) {
-          if (navActiveId != null && parentPanelIdForLeaf(navActiveId) === id) {
-            onNavChange(null)
-          }
-          return null
-        }
-        return id
-      })
+      const cur = openPanelIdRef.current
+      const closing = cur === id
+
+      if (closing && navActiveId != null && parentPanelIdForLeaf(navActiveId) === id) {
+        onNavChange(null)
+      }
+
+      setOpenPanelId(closing ? null : id)
     },
     [navActiveId, onNavChange],
   )
@@ -143,7 +149,7 @@ export function Sidebar({ collapsed, layoutTransition = true, navActiveId, onNav
         aria-hidden={collapsed || undefined}
       >
         <div className={styles.brandRow}>
-          <Link to="/" className={styles.brandLink} onClick={() => onNavChange('home')}>
+          <Link href="/" className={styles.brandLink} onClick={() => onNavChange('home')}>
             <img
               src="/images/brand-ochiq-nazorat.png"
               alt="Ochiq nazorat"

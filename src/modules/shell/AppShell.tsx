@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { EconomicEdoUsage } from '@/modules/economic-edo/EconomicEdoUsage'
+import { HomeDashboard } from '@/modules/home'
 import { Header } from '@/modules/layout/header'
 import { RightRail } from '@/modules/layout/right-rail'
 import { Sidebar } from '@/modules/layout/sidebar'
@@ -107,7 +108,9 @@ export function AppShell() {
               compactMobileTray={!sidebarCollapsed}
             />
             <main className={styles.workspaceMain}>
-              {navId === 'iq-edo' ? (
+              {navId === 'home' ? (
+                <HomeDashboard />
+              ) : navId === 'iq-edo' ? (
                 <EconomicEdoUsage />
               ) : docStatus === 'error' ? (
                 <div className={styles.dataError} role="alert">

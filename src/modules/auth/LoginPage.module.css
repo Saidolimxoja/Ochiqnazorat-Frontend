@@ -1,0 +1,344 @@
+.container {
+  display: flex;
+  min-height: 100dvh;
+  height: 100%;
+  font-family: var(--do-font);
+  background-color: #ffffff;
+  overflow: hidden;
+}
+.leftPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 40px 24px;
+  min-height: 100dvh;
+  z-index: 10;
+}
+
+.formContainer {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.logoImage {
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+}
+
+.brandLogo {
+  width: 180px;
+  height: auto;
+  margin-top: 16px;
+  object-fit: contain;
+}
+
+.logoTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin: 16px 0 0 0;
+  line-height: 1.35;
+  font-family: 'SF Pro Display', var(--do-font);
+}
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.tabButton {
+  flex: 1;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #64748b;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+
+.activeTab {
+  color: #0f172a;
+}
+
+.tabIndicator {
+  position: absolute;
+  bottom: -1px;
+  height: 2px;
+  width: 50%;
+  background-color: #7c3aed;
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputGroup {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #334155;
+  background-color: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  outline: none;
+}
+
+.input::placeholder {
+  color: #94a3b8;
+}
+
+.input:focus {
+  border-color: var(--do-primary);
+  box-shadow: 0 0 0 3px rgba(0, 163, 255, 0.12);
+}
+
+.passwordWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.togglePassword:hover {
+  color: #334155;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #d6eeff;
+  color: #0087e0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-align: center;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.submitButton:hover {
+  background-color: #c2e2fc;
+  color: #0070bc;
+}
+
+.submitButton:active {
+  transform: scale(0.98);
+}
+.error {
+  color: #ef4444;
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: left;
+}
+.oneidWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+  padding: 8px 0;
+}
+
+.oneidText {
+  font-size: 0.9rem;
+  color: #64748b;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.oneidButton {
+  width: 100%;
+  padding: 12px;
+  background-color: #7c3aed;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-align: center;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.oneidButton:hover {
+  background-color: #6d28d9;
+}
+
+.oneidButton:active {
+  transform: scale(0.98);
+}
+.footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 8px;
+}
+
+.phoneLink {
+  color: #00a3ff;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.phoneLink:hover {
+  color: #0087e0;
+  text-decoration: underline;
+}
+.rightPanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-image: url('/images/login-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 50px 32px;
+  position: relative;
+}
+
+.rightPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 14, 32, 0.15);
+  z-index: 1;
+}
+
+.rightPanel > * {
+  z-index: 2;
+}
+
+.mockupContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 520px;
+}
+
+.mockupImage {
+  width: 100%;
+  height: auto;
+  max-height: 440px;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.25));
+  animation: floatAnimation 4s ease-in-out infinite;
+}
+
+@keyframes floatAnimation {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.infoCard {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 24px 32px;
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.infoTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.infoText {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
+  margin: 0;
+  text-align: center;
+}
+
+.partnerLogos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.partnerLogoUnicon {
+  height: 20px;
+  opacity: 0.95;
+  object-fit: contain;
+}
+
+.partnerLogoMinistry {
+  height: 24px;
+  opacity: 0.95;
+  object-fit: contain;
+}
+@media (max-width: 960px) {
+  .rightPanel {
+    display: none;
+  }
+  .leftPanel {
+    flex: 1;
+    width: 100%;
+  }
+}
