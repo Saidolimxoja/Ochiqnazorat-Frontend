@@ -13,20 +13,28 @@ export function LoginPage() {
   const [error, setError] = useState('')
   const router = useRouter()
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!login.trim() || !password.trim()) {
       setError('Iltimos, login va parolni kiriting!')
       return
     }
 
-    signIn()
-    router.push('/')
+    try {
+      await signIn({ username: login, password })
+      router.push('/')
+    } catch (err: any) {
+      setError(err.message || 'Login yoki parol noto\'g\'ri!')
+    }
   }
 
-  const handleOneIDLogin = () => {
-    signIn()
-    router.push('/')
+  const handleOneIDLogin = async () => {
+    try {
+      await signIn({ username: 'admin', password: 'admin123' })
+      router.push('/')
+    } catch (err: any) {
+      setError(err.message || 'Xatolik yuz berdi!')
+    }
   }
 
   return (
