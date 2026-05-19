@@ -12,7 +12,14 @@ lerna-debug.log*
 /dist-ssr
 *.local
 
-# Editor directories and files
+# Claude Code
+.claude/
+.claude/**
+
+# pnpm
+pnpm-workspace.yaml
+.pnpm-store
+
 .vscode/*
 !.vscode/extensions.json
 .idea
