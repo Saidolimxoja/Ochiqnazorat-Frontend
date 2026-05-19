@@ -21,14 +21,15 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
   const [now, setNow] = useState(() => new Date())
   const [profileMenuOpen, setProfileMenuOpen] = useState(false)
   const mobileProfileRef = useRef<HTMLDivElement>(null)
+  const desktopProfileRef = useRef<HTMLDivElement>(null)
   const menuId = useId()
   const router = useRouter()
 
   const closeProfileMenu = useCallback(() => setProfileMenuOpen(false), [])
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = useCallback(async () => {
     signOut()
-    router.push('/login')
+    await router.push('/login')
   }, [router])
 
   useEffect(() => {
@@ -46,7 +47,10 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
   }, [])
 
   useEscapeKey(profileMenuOpen, closeProfileMenu)
-  const getProfileRoot = useCallback(() => [mobileProfileRef.current], [])
+  const getProfileRoot = useCallback(
+    () => [mobileProfileRef.current, desktopProfileRef.current].filter(Boolean),
+    []
+  )
   usePointerOutsideMany(profileMenuOpen, closeProfileMenu, getProfileRoot, 'mousedown')
 
   const time = now.toLocaleTimeString('uz-UZ', {
@@ -120,8 +124,17 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
         <div className={`${styles.headerTools} ${styles.headerToolsDesk}`}>
           {utilityRow}
           <div className={styles.profileCluster}>
-            <div className={styles.desktopProfileWrap} ref={mobileProfileRef}>
-              {userBlock}
+            <div className={styles.desktopProfileWrap} ref={desktopProfileRef}>
+              <button
+                type="button"
+                className={styles.user}
+                onClick={() => setProfileMenuOpen((o) => !o)}
+                aria-expanded={profileMenuOpen}
+                aria-haspopup="dialog"
+              >
+                <HeaderUserAvatar className={styles.avatarImg} size={24} />
+                <span className={styles.userName}>{DEFAULT_SESSION_DISPLAY.displayName}</span>
+              </button>
               {profileMenuOpen ? (
                 <div
                   className={styles.profileMenu}
@@ -129,7 +142,15 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
                   role="dialog"
                   aria-label="Profil va sozlamalar"
                 >
-                  <div className={styles.profileMenuSection}>{langBlock}</div>
+                  <div className={styles.profileMenuSection}>
+                    <button
+                      type="button"
+                      className={styles.settingsBtn}
+                      aria-label="Sozlamalar"
+                    >
+                      ⚙️ Sozlamalar
+                    </button>
+                  </div>
                   <div className={styles.profileMenuSection}>
                     <button
                       type="button"
@@ -178,6 +199,15 @@ export function Header({ onMenuToggle, menuOpen, compactMobileTray = false }: Pr
               </div>
               <div className={styles.profileMenuSection}>{utilityRow}</div>
               <div className={styles.profileMenuSection}>{langBlock}</div>
+              <div className={styles.profileMenuSection}>
+                <button
+                  type="button"
+                  className={styles.settingsBtn}
+                  aria-label="Sozlamalar"
+                >
+                  ⚙️ Sozlamalar
+                </button>
+              </div>
               <div className={styles.profileMenuSection}>
                 <button
                   type="button"

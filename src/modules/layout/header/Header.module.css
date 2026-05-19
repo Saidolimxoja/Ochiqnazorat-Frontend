@@ -505,6 +505,27 @@
   background: rgba(239, 68, 68, 0.3);
 }
 
+.settingsBtn {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.settingsBtn:hover {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+.settingsBtn:active {
+  background: rgba(59, 130, 246, 0.3);
+}
+
 .desktopProfileWrap {
   position: relative;
 }
