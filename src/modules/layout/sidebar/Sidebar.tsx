@@ -6,8 +6,6 @@ import { SIDEBAR_ENTRIES, SIDEBAR_STATS, type SidebarEntry } from './sidebar-ent
 import { IconChevron } from '@/shared/ui/icons'
 import styles from './Sidebar.module.css'
 
-const TASK_PANEL_ID = 'tasks'
-
 const TASK_MODULES: { id: string; label: string }[] = [
   { id: 'task-edo', label: 'EDO' },
   { id: 'task-kadr', label: 'Kadr' },
@@ -171,48 +169,6 @@ export function Sidebar({ collapsed, layoutTransition = true, navActiveId, onNav
             </>
           ) : null}
         </nav>
-
-        <div className={styles.bottom}>
-          <div className={styles.tasksWrap}>
-            {openPanelId === TASK_PANEL_ID && !collapsed ? (
-              <ul className={styles.tasksSubList}>
-                {TASK_MODULES.map(({ id, label }) => {
-                  const subActive = navActiveId != null && navActiveId === id
-                  return (
-                    <li key={id}>
-                      <button
-                        type="button"
-                        className={styles.tasksSubItem}
-                        data-active={subActive || undefined}
-                        onClick={() => onNavChange(id)}
-                      >
-                        {label}
-                      </button>
-                    </li>
-                  )
-                })}
-              </ul>
-            ) : null}
-            <button
-              type="button"
-              className={styles.tasksHead}
-              aria-expanded={openPanelId === TASK_PANEL_ID}
-              onClick={(e) => {
-                e.stopPropagation()
-                togglePanel(TASK_PANEL_ID)
-              }}
-            >
-              <span className={styles.tasksHeadMain}>
-                <span className={styles.tasksTitle}>TOPSHIRIQLAR</span>
-              </span>
-              <IconChevron
-                className={styles.tasksChevron}
-                down={openPanelId === TASK_PANEL_ID}
-                aria-hidden
-              />
-            </button>
-          </div>
-        </div>
       </aside>
     </div>
   )
