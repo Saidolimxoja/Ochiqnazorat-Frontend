@@ -1,5 +1,8 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4200/api/v1';
 
+// Проверяем, содержит ли URL уже /api/v1
+const shouldAddPrefix = !API_URL.includes('/api/v1');
+
 export interface LoginRequest {
   username: string;
   password: string;
@@ -67,7 +70,9 @@ class ApiClient {
       headers['Authorization'] = `Bearer ${token}`;
     }
 
-    const response = await fetch(`${this.baseUrl}${endpoint}`, {
+    const url = shouldAddPrefix ? `${this.baseUrl}/api/v1${endpoint}` : `${this.baseUrl}${endpoint}`;
+
+    const response = await fetch(url, {
       ...options,
       headers,
     });
