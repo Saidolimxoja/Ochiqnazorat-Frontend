@@ -12,12 +12,9 @@ const TASK_MODULES: { id: string; label: string }[] = [
   { id: 'task-byudjet', label: 'Byudjet' },
 ]
 
-const TASK_CHILD_IDS = new Set(TASK_MODULES.map((t) => t.id))
-
 const ALL_ENTRIES: SidebarEntry[] = [...SIDEBAR_ENTRIES, ...SIDEBAR_STATS]
 
 function parentPanelIdForLeaf(leafId: string): string | undefined {
-  if (TASK_CHILD_IDS.has(leafId)) return TASK_PANEL_ID
   for (const e of ALL_ENTRIES) {
     if (e.kind === 'panel' && e.panel.children.some((c) => c.id === leafId)) {
       return e.panel.id
