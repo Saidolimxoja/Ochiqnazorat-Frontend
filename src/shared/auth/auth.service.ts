@@ -7,7 +7,10 @@ export function isAuthenticated(): boolean {
 
 export async function signIn(credentials: LoginRequest): Promise<void> {
   try {
-    const response = await apiClient.login(credentials)
+    const response = await apiClient.login({
+      username: credentials.username.trim(),
+      password: credentials.password.trim(),
+    })
     openSession(response.access_token, response.user)
   } catch (error) {
     throw error

@@ -41,10 +41,11 @@
 }
 
 .brandLogo {
-  width: 180px;
+  width: 300px;
   height: auto;
   margin-top: 16px;
   object-fit: contain;
+  filter: brightness(0) saturate(100%);
 }
 
 .logoTitle {
@@ -154,15 +155,22 @@
     background-color 0.2s ease,
     color 0.2s ease,
     transform 0.1s ease;
+  cursor: pointer;
+  border: none;
 }
 
-.submitButton:hover {
+.submitButton:hover:not(:disabled) {
   background-color: #c2e2fc;
   color: #0070bc;
 }
 
-.submitButton:active {
+.submitButton:active:not(:disabled) {
   transform: scale(0.98);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 .error {
   color: #ef4444;
@@ -201,14 +209,21 @@
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
+  cursor: pointer;
+  border: none;
 }
 
-.oneidButton:hover {
+.oneidButton:hover:not(:disabled) {
   background-color: #6d28d9;
 }
 
-.oneidButton:active {
+.oneidButton:active:not(:disabled) {
   transform: scale(0.98);
+}
+
+.oneidButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 .footer {
   text-align: center;

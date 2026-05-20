@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { signIn } from '@/shared/auth/auth.service'
+import { Toast } from '@/shared/ui/Toast/Toast'
+import { useToast } from '@/shared/ui/Toast/useToast'
 import styles from './LoginPage.module.css'
 
 export function LoginPage() {
@@ -11,41 +13,65 @@ export function LoginPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const { toasts, removeToast, success, error: showError, loading: showLoading } = useToast()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!login.trim() || !password.trim()) {
       setError('Iltimos, login va parolni kiriting!')
+      showError('Iltimos, login va parolni kiriting!')
       return
     }
 
+    setIsLoading(true)
+    const loadingId = showLoading('Tizimga kirilmoqda...')
+
     try {
       await signIn({ username: login, password })
-      router.push('/')
+      removeToast(loadingId)
+      success('Muvaffaqiyatli kirildi!')
+      setTimeout(() => router.push('/'), 500)
     } catch (err: any) {
-      setError(err.message || 'Login yoki parol noto\'g\'ri!')
+      removeToast(loadingId)
+      const errorMessage = err.message || 'Login yoki parol noto\'g\'ri!'
+      setError(errorMessage)
+      showError(errorMessage)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const handleOneIDLogin = async () => {
+    setIsLoading(true)
+    const loadingId = showLoading('OneID orqali kirilmoqda...')
+
     try {
       await signIn({ username: 'admin', password: 'admin123' })
-      router.push('/')
+      removeToast(loadingId)
+      success('Muvaffaqiyatli kirildi!')
+      setTimeout(() => router.push('/'), 500)
     } catch (err: any) {
-      setError(err.message || 'Xatolik yuz berdi!')
+      removeToast(loadingId)
+      const errorMessage = err.message || 'Xatolik yuz berdi!'
+      showError(errorMessage)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
-    <div className={styles.container}>
+    <>
+      <Toast toasts={toasts} onRemove={removeToast} />
+      <div className={styles.container}>
       <div className={styles.leftPanel}>
         <div className={styles.formContainer}>
           <div className={styles.logoWrapper}>
             <img
-              src="/images/gerb.svg"
-              alt="O'zbekiston Respublikasi Gerbi"
-              className={styles.logoImage}
+              src="/images/unicon-soft.svg"
+              alt="UNICON SOFT"
+              className={styles.brandLogo}
             />
             <h1 className={styles.logoTitle}>"Ochiq Nazorat" tizimi</h1>
           </div>
@@ -75,8 +101,6 @@ export function LoginPage() {
 
           {activeTab === 'login' ? (
             <form className={styles.form} onSubmit={handleLogin}>
-              {error && <div className={styles.error}>{error}</div>}
-
               <div className={styles.inputGroup}>
                 <input
                   type="text"
@@ -147,8 +171,8 @@ export function LoginPage() {
                 </div>
               </div>
 
-              <button type="submit" className={styles.submitButton}>
-                Tizimga kirish
+              <button type="submit" className={styles.submitButton} disabled={isLoading}>
+                {isLoading ? 'Kirilmoqda...' : 'Tizimga kirish'}
               </button>
             </form>
           ) : (
@@ -157,18 +181,12 @@ export function LoginPage() {
                 OneID orqali yagona identifikatsiya tizimi yordamida tezkor va xavfsiz tizimga
                 kirish.
               </p>
-              <button type="button" className={styles.oneidButton} onClick={handleOneIDLogin}>
-                OneID orqali kirish
+              <button type="button" className={styles.oneidButton} onClick={handleOneIDLogin} disabled={isLoading}>
+                {isLoading ? 'Kirilmoqda...' : 'OneID orqali kirish'}
               </button>
             </div>
           )}
 
-          <div className={styles.footer}>
-            Call-center:{' '}
-            <a href="tel:+998712004646" className={styles.phoneLink}>
-              +99871-200-46-46
-            </a>
-          </div>
         </div>
       </div>
 
@@ -181,29 +199,9 @@ export function LoginPage() {
           />
         </div>
 
-        <div className={styles.infoCard}>
-          <h2 className={styles.infoTitle}>"Ochiq Nazorat" tizimi</h2>
-          <p className={styles.infoText}>
-            Tuman (shahar) boshqaruv apparati hamda tarkibiy bo'linmalari faoliyatini
-            raqamlashtirish, boshqaruv samaradorligini oshirish, qaror qabul qilish, nazorat va
-            hisobotlarni avtomatlashtirish bilan ishlashni elektronlashtirish orqali hududiy
-            rivojlanishni kuchaytirish.
-          </p>
 
-          <div className={styles.partnerLogos}>
-            <img
-              src="/images/unicon-soft.svg"
-              alt="UNICON SOFT"
-              className={styles.partnerLogoUnicon}
-            />
-            <img
-              src="/images/login-ministry-logo.png"
-              alt="Digital Technologies Ministry"
-              className={styles.partnerLogoMinistry}
-            />
-          </div>
-        </div>
       </div>
     </div>
+    </>
   )
 }
