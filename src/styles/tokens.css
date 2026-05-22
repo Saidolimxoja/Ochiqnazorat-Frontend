@@ -9,7 +9,7 @@
   --do-text: #334155;
   --do-text-secondary: #64748b;
   --do-text-muted: #98a2b3;
-  --do-surface-ground: transparent;
+  --do-surface-ground: #ffffff;
   --do-surface-light: #f2f4f7;
   --do-card: #ffffff;
   --do-bars-bg: rgba(255, 255, 255, 0.1);
@@ -19,7 +19,7 @@
   --do-app-bg-image: url(/images/blue-background.png);
   --do-bg-scrim: rgba(8, 14, 32, 0.26);
 
-  /* Chap panel — shaffof shisha (fon orqasidan ko‘rinadi) */
+  /* Chap panel — shaffof shisha (fon orqasidan ko’rinadi) */
   --do-sidebar-glass-bg: rgba(42, 36, 72, 0.38);
   --do-sidebar-glass-blur: 24px;
   --do-header-h: 64px;
@@ -31,6 +31,7 @@
   --do-gap: 12px;
 
   --do-font:
-    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'SF Pro Display',
-    'SF Pro Display Regular', sans-serif;
+    ‘Inter’, system-ui, -apple-system, ‘Segoe UI’, Roboto, ‘SF Pro Display’,
+    ‘SF Pro Display Regular’, sans-serif;
 }
+
