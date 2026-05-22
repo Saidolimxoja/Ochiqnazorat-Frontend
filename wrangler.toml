@@ -1,0 +1,25 @@
+[env.production]
+name = "ochiq-nazorat"
+main = "dist/index.js"
+compatibility_date = "2024-12-16"
+
+[build]
+command = "npm run build"
+cwd = "./"
+watch_paths = ["src/**/*.ts", "src/**/*.tsx"]
+
+[build.upload]
+format = "service-worker"
+
+[env.production.build]
+command = "npm run build"
+cwd = "./"
+
+[env.production.build.upload]
+format = "service-worker"
+
+[triggers.crons]
+crons = ["0 0 * * *"]
+
+[observability]
+enabled = true
