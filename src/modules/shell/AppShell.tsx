@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { AdminPanel } from '@/modules/admin'
 import { EconomicEdoUsage } from '@/modules/economic-edo/EconomicEdoUsage'
 import { HomeDashboard } from '@/modules/home'
 import { Header } from '@/modules/layout/header'
@@ -109,11 +110,13 @@ export function AppShell() {
             <main className={styles.workspaceMain}>
               {navId === 'home' ? (
                 <HomeDashboard />
+              ) : navId === 'admin' ? (
+                <AdminPanel />
               ) : navId === 'iq-edo' ? (
                 <EconomicEdoUsage />
               ) : docStatus === 'error' ? (
                 <div className={styles.dataError} role="alert">
-                  Hujjatlar ro‘yxati yuklanmadi.
+                  Hujjatlar royxati yuklanmadi.
                   {docError instanceof Error ? ` ${docError.message}` : ''}
                 </div>
               ) : docStatus === 'loading' && documents.length === 0 ? (

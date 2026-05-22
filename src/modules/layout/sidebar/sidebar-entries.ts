@@ -33,22 +33,23 @@ export type SidebarEntry =
 
 export const SIDEBAR_ENTRIES: SidebarEntry[] = [
   { kind: 'link', id: 'home', label: 'Bosh sahifa', Icon: IconHome },
-  { kind: 'link', id: 'joriy-etish', label: "Joriy etish ko'rsatkichlari", Icon: IconChart },
+  { kind: 'link', id: 'joriy-etish', label: 'Joriy etish koʻrsatkichlari', Icon: IconChart },
   {
     kind: 'panel',
     panel: {
       id: 'iqtisodiy',
-      label: "Iqtisodiy ko'rsatkichlar",
+      label: 'Iqtisodiy koʻrsatkichlar',
       Icon: IconStatistics,
       children: [
         { id: 'iq-balans', label: 'Iqtisodiy balans' },
-        { id: 'iq-edo', label: '“EDO” dan foydalanish' },
+        { id: 'iq-edo', label: 'EDO dan foydalanish' },
       ],
     },
   },
   { kind: 'link', id: 'ishlar-hisoboti', label: 'Qilingan ishlar hisoboti', Icon: IconReports },
   { kind: 'link', id: 'ishga-kelish', label: 'Ishga kelish hisoboti', Icon: IconList },
   { kind: 'link', id: 'moddiy-texnik', label: 'Moddiy texnik baza', Icon: IconDesignTools },
+  { kind: 'link', id: 'admin', label: 'Administrator', Icon: IconDesignTools },
 ]
 
 export const SIDEBAR_STATS: SidebarEntry[] = []
