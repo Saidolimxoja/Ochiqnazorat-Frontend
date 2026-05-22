@@ -1,7 +1,7 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4200/api/v1';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4200';
 
 // Проверяем, содержит ли URL уже /api/v1
-const shouldAddPrefix = !API_URL.includes('/api/v1');
+const shouldAddPrefix = API_URL ? !API_URL.includes('/api/v1') : true;
 
 export interface LoginRequest {
   username: string;
