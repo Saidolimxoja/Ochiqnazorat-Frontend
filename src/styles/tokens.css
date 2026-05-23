@@ -30,6 +30,9 @@
   --do-pad: 16px;
   --do-gap: 12px;
 
+  --do-dashboard-card-width: 886.5px;
+  --do-workspace-min-width: var(--do-dashboard-card-width);
+
   --do-font:
     ‘Inter’, system-ui, -apple-system, ‘Segoe UI’, Roboto, ‘SF Pro Display’,
     ‘SF Pro Display Regular’, sans-serif;

@@ -1,0 +1,48 @@
+@import './styles/home-dashboard.tokens.css';
+
+.header {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+  min-height: clamp(44px, 8cqh, 56px);
+  margin: calc(-1 * var(--hd-card-pad-active)) calc(-1 * var(--hd-card-pad-active)) 0;
+  padding: 0 12px 0 var(--hd-card-pad-active);
+  border-radius: var(--hd-card-radius) var(--hd-card-radius) 0 0;
+  background: linear-gradient(90deg, #cbd1dd 0%, #e4e8ef 46%, #f7f8fb 100%);
+  overflow: visible;
+}
+
+.headerSelect {
+  height: 36px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #0f172a;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+.headerIconBtn {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  color: #1e3a8a;
+}
+
+@container revenue-card (max-width: 479px) {
+  @container revenue-card (max-width: 480px) {
+    .headerSelect {
+      height: 28px !important;
+      padding: 0 7px !important;
+      font-size: 11px !important;
+    }
+
+    .headerIconBtn {
+      width: 28px !important;
+      height: 28px !important;
+    }
+  }
+}

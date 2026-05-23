@@ -1,0 +1,62 @@
+.regionsSection {
+  grid-area: regions;
+  container-type: inline-size;
+  container-name: revenue-regions;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.regionsTitle {
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: var(--hd-region-title-h);
+  box-sizing: border-box;
+  font-size: clamp(10px, 4.5cqi, 12px);
+  font-weight: 500;
+  color: #334155;
+  background: var(--hd-region-title-bg);
+  padding: 5px 8px;
+  border-radius: 8px;
+  margin: 0;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.regionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1 1 0;
+  width: 100%;
+  min-height: 0;
+  max-height: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 4px;
+  scrollbar-gutter: stable;
+}
+
+
+.regionsList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.regionsList::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.regionsList::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}

@@ -1,0 +1,32 @@
+:root {
+  --hd-mode-revenue-gauge-width: 100%;
+  --hd-mode-revenue-gauge-max-width: 100%;
+  --hd-mode-revenue-gauge-cap: 360px;
+  --hd-mode-revenue-gauge-align-self: center;
+  --hd-mode-revenue-gauge-section-align: stretch;
+  --hd-mode-revenue-gauge-wrap-flex: 0 0 auto;
+  --hd-mode-revenue-gauge-stretch: 0;
+}
+
+[data-dashboard-mode='grid'],
+[data-dashboard-mode='dual'],
+[data-dashboard-mode='triple'] {
+  --hd-mode-revenue-gauge-width: 100%;
+  --hd-mode-revenue-gauge-max-width: 100%;
+  --hd-mode-revenue-gauge-cap: 100%;
+  --hd-mode-revenue-gauge-align-self: stretch;
+  --hd-mode-revenue-gauge-section-align: stretch;
+  --hd-mode-revenue-gauge-wrap-flex: 1 1 0;
+  --hd-mode-revenue-gauge-stretch: 1;
+}
+
+[data-dashboard-mode='single'] {
+  --hd-mode-revenue-gauge-width: 100%;
+  --hd-mode-revenue-gauge-max-width: 100%;
+  --hd-mode-revenue-gauge-cap: 100%;
+  --hd-mode-revenue-gauge-align-self: stretch;
+  --hd-mode-revenue-content-flex: 1 1 0;
+  --hd-mode-revenue-regions-max-h: min(420px, 50vh);
+  --hd-mode-revenue-gauge-wrap-flex: 1 1 0;
+  --hd-mode-revenue-gauge-stretch: 1;
+}

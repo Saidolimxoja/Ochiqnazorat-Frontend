@@ -1,0 +1,38 @@
+:root {
+  --hd-layout-width: 1800px;
+  --hd-layout-height: 998px;
+  --hd-card-width: 886.5px;
+  --hd-card-height: 406px;
+  --hd-grid-gap: 12px;
+  --hd-card-radius: 18px;
+  --hd-card-pad: 14px;
+
+  --hd-revenue-panel-left: 66%;
+  --hd-revenue-panel-right: 34%;
+  --hd-region-title-h: 28px;
+  --hd-region-card-h: 62px;
+  --hd-region-radius: 15px;
+  --hd-region-border: 2px solid #fecdd3;
+  --hd-region-title-bg: #e0f2fe;
+  --hd-region-sidebar-min: 178px;
+  --hd-region-sidebar-max: 34%;
+
+  --hd-advance-main: 63%;
+  --hd-advance-regions: 33%;
+  --hd-advance-summary-w: 215px;
+  --hd-advance-summary-h: 176px;
+
+  --hd-invoice-chart: 177px;
+  --hd-invoice-row-h: 40px;
+
+  --hd-edo-top-card-h: 124px;
+  --hd-edo-contract-h: 84px;
+  --hd-edo-bottom-card-h: 151px;
+
+  --hd-accent-green: #32d583;
+  --hd-accent-red: #f97066;
+  --hd-pill-green-bg: #d1fadf;
+  --hd-pill-red-bg: #fee4e2;
+  --hd-pill-green-text: #039855;
+  --hd-pill-red-text: #d92d20;
+}

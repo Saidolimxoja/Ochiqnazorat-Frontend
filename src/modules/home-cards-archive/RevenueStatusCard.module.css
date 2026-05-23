@@ -1,0 +1,90 @@
+@import './styles/home-dashboard.tokens.css';
+@import './styles/revenue/revenue-shell.module.css';
+@import './styles/revenue/revenue-tabs.module.css';
+@import './styles/revenue/revenue-layout.module.css';
+@import './styles/revenue/revenue-gauge.module.css';
+@import './styles/revenue/revenue-regions.module.css';
+@import './styles/revenue/revenue-responsive.module.css';
+
+/* Revenue Card specific */
+.gaugeCenter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.gaugeValue1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.gaugeValue2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.gaugeLabel {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.header {
+  position: relative;
+  z-index: 20;
+  flex-shrink: 0;
+  min-height: clamp(44px, 8cqh, 56px);
+  margin: -14px -14px 0;
+  padding: 0 12px 0 14px;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(90deg, #cbd1dd 0%, #e4e8ef 46%, #f7f8fb 100%);
+  overflow: visible;
+}
+
+.headerSelect {
+  height: 36px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #0f172a;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+.headerIconBtn {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  color: #1e3a8a;
+}
+
+@container home-dashboard (max-width: 1023px) {
+  @container revenue-card (max-width: 480px) {
+    .headerSelect {
+      height: 28px !important;
+      padding: 0 7px !important;
+      font-size: 11px !important;
+    }
+
+    .headerIconBtn {
+      width: 28px !important;
+      height: 28px !important;
+    }
+  }
+}

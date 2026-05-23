@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  experimental: {
-    isrMemoryCacheSize: 0,
-  },
 }
 
 export default nextConfig

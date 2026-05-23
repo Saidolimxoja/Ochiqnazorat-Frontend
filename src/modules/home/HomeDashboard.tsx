@@ -1,39 +1,41 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import { REGIONS_LIST, TABLE_ROWS } from './home-dashboard.mock'
-import type { HomeFilterTab } from './home-dashboard.types'
-import { computeRepublicTotals } from './home-dashboard.utils'
-import { HomeDashboardToolbar } from './HomeDashboardToolbar'
-import { HomeKpiSidebar } from './HomeKpiSidebar'
-import { HomeMapSection } from './HomeMapSection'
-import { HomeRegionsList } from './HomeRegionsList'
-import { HomeReportTable } from './HomeReportTable'
-import styles from './HomeDashboard.module.css'
+import { AdvanceStatusCard } from './AdvanceStatusCard'
+import { resolveDashboardMode } from './dashboard-mode'
+import { EdoUsageStatusCard } from './EdoUsageStatusCard'
+import { HomeDashboardHeader } from './HomeDashboardHeader'
+import layout from './styles/HomeDashboard.layout.module.css'
+import './styles/home-dashboard-modes.css'
+import { InvoiceStatusCard } from './InvoiceStatusCard'
+import { RevenueStatusCard } from './RevenueStatusCard'
+
+const DASHBOARD_CARD_COUNT = 4
 
 export function HomeDashboard() {
-  const [activeTab, setActiveTab] = useState<HomeFilterTab>('devonxona')
-  const [hoveredRegion, setHoveredRegion] = useState<string | null>(null)
+  const dashboardMode = resolveDashboardMode(DASHBOARD_CARD_COUNT)
+  const singleCardFocus = dashboardMode === 'single'
 
-  const totals = useMemo(() => computeRepublicTotals(REGIONS_LIST), [])
+  const gridClass = [
+    layout.dashboardGrid,
+    dashboardMode === 'single' ? layout.dashboardGridSingle : '',
+    dashboardMode === 'dual' ? layout.dashboardGridDual : '',
+    dashboardMode === 'triple' ? layout.dashboardGridTriple : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
-    <div className={styles.container}>
-      <HomeDashboardToolbar activeTab={activeTab} onTabChange={setActiveTab} />
-      <div className={styles.dashboardGrid}>
-        <HomeMapSection
-          totals={totals}
-          hoveredRegion={hoveredRegion}
-          onHoverRegion={setHoveredRegion}
-        />
-        <HomeRegionsList
-          regions={REGIONS_LIST}
-          hoveredRegion={hoveredRegion}
-          onHoverRegion={setHoveredRegion}
-        />
-        <HomeKpiSidebar />
+    <div
+      className={`${layout.container}${singleCardFocus ? ` ${layout.containerSingle}` : ''}`}
+      data-dashboard-mode={dashboardMode}
+    >
+      <HomeDashboardHeader />
+      <div className={gridClass}>
+        <RevenueStatusCard />
+        <AdvanceStatusCard />
+        <InvoiceStatusCard />
+        <EdoUsageStatusCard />
       </div>
-      <HomeReportTable rows={TABLE_ROWS} />
     </div>
   )
 }

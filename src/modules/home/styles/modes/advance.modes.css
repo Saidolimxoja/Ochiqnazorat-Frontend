@@ -1,0 +1,34 @@
+:root {
+  --hd-mode-advance-content-flex: 1 1 0;
+  --hd-mode-advance-chart-justify: flex-start;
+  --hd-mode-advance-chart-height: auto;
+  --hd-mode-advance-chart-align-self: auto;
+  --hd-mode-advance-chart-gap: clamp(8px, 2cqw, 18px);
+  --hd-mode-advance-donut-size: 190px;
+  --hd-mode-advance-donut-max: 210px;
+  --hd-mode-advance-legend-max-w: 132px;
+  --hd-mode-advance-legend-gap: 24px;
+  --hd-mode-advance-chart-stretch: 0;
+}
+
+[data-dashboard-mode='grid'],
+[data-dashboard-mode='single'],
+[data-dashboard-mode='dual'],
+[data-dashboard-mode='triple'] {
+  --hd-mode-advance-content-flex: 1 1 0;
+  --hd-mode-advance-chart-justify: center;
+  --hd-mode-advance-chart-align-self: stretch;
+  --hd-mode-advance-chart-width: 100%;
+  --hd-mode-advance-chart-height: 100%;
+  --hd-mode-advance-chart-gap: clamp(12px, 2cqw, 20px);
+  --hd-mode-advance-chart-stretch: 1;
+  --hd-mode-advance-donut-h: 100%;
+  --hd-mode-advance-donut-w: auto;
+  --hd-mode-advance-donut-max: min(300px, calc(100% - 180px));
+  --hd-mode-advance-donut-flex: 0 1 auto;
+  --hd-mode-advance-legend-max-w: 168px;
+  --hd-mode-advance-legend-gap: 22px;
+  --hd-mode-advance-donut-label-fs: clamp(14px, 2.4cqw, 17px);
+  --hd-mode-advance-donut-value-fs: clamp(24px, 4.5cqw, 32px);
+  --hd-mode-advance-legend-fs: clamp(14px, 2.6cqw, 16px);
+}
