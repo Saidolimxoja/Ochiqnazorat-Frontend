@@ -21,7 +21,7 @@ cwd = "./"
 [env.production.build.upload]
 format = "service-worker"
 
-[triggers.crons]
+[triggers]
 crons = ["0 0 * * *"]
 
 [observability]
