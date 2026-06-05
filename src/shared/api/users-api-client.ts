@@ -3,11 +3,20 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://consoles-disposal-ed
 const shouldAddPrefix = API_URL ? !API_URL.includes('/api/v1') : true
 
 export interface CreateUserRequest {
-  email: string
-  first_name: string
-  last_name: string
-  phone?: string
+  full_name: string
+  pinfl: string
+  birthday_date: string
+  phone_number: string
+  username: string
   password: string
+  responsible_module: string
+  level: string
+  org_id: string
+  role_ids: string[]
+  position_id?: string
+  region_id?: string
+  district_id?: string
+  temporary_modules?: string[]
 }
 
 export interface UserResponse {
