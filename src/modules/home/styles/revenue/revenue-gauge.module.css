@@ -1,0 +1,18 @@
+.gaugeSection {
+  grid-area: gauge;
+  container-type: inline-size;
+  container-name: revenue-gauge;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-self: stretch;
+  gap: clamp(6px, 1.2cqi, 12px);
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  flex: 1 1 0;
+  overflow: hidden;
+  padding-bottom: 0;
+}

@@ -1,0 +1,488 @@
+@import '../home-dashboard.tokens.css';
+
+.card {
+  --hd-card-pad-active: var(--hd-card-pad);
+  background: #fff;
+  border-radius: var(--hd-card-radius);
+  padding: var(--hd-card-pad-active);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: auto;
+  max-height: none;
+  overflow: hidden;
+  min-width: 0;
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  container-type: inline-size;
+}
+
+.cardBodyScroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.cardHeaderDark {
+  background: linear-gradient(90deg, #dbeafe 0%, #eff6ff 45%, #f8fafc 100%);
+  margin: calc(-1 * var(--hd-card-pad-active)) calc(-1 * var(--hd-card-pad-active)) 0;
+  padding: 8px var(--hd-card-pad-active);
+  border-radius: var(--hd-card-radius) var(--hd-card-radius) 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.25;
+}
+
+.dropdownGroup {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.customDropdown {
+  position: relative;
+}
+
+.dropdownHost {
+  position: relative;
+  z-index: 30;
+}
+
+.dropdownElevated {
+  z-index: 60;
+  min-width: 160px;
+  border: 0;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+}
+
+.customSelect {
+  padding: 5px 9px;
+  padding-right: 8px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  color: #334155;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 92px;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  z-index: 30;
+  padding: 8px 0;
+}
+
+.dropdownItem {
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdownItem:hover {
+  background: #f8fafc;
+}
+
+.dropdownItemActive {
+  background: #e0f2fe;
+  color: #0f172a;
+}
+
+.dropdownSubItem {
+  padding-left: 24px;
+}
+
+.dropdownToggle {
+  width: 100%;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  font: inherit;
+  text-align: inherit;
+}
+
+.dropdownSubGroup {
+  border-top: 6px solid #f1f5f9;
+}
+
+.select {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  padding-right: 32px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.iconBtn:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.cardContent {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 14px;
+  min-height: min-content;
+  min-width: 0;
+  align-self: stretch;
+  overflow: visible;
+}
+
+.cardDateRow {
+  display: flex;
+  justify-content: flex-end;
+  margin: 6px 0 8px;
+}
+
+.advanceDateRow {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 2px 0 0;
+  padding: 0 8px;
+  flex-shrink: 0;
+  min-height: 22px;
+  line-height: 1;
+}
+
+.chartArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.listArea {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.listArea > .listTitle {
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+
+.listTitle {
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: var(--hd-region-title-h);
+  box-sizing: border-box;
+  font-size: clamp(10px, 4.5cqi, 12px);
+  font-weight: 500;
+  color: #334155;
+  background: var(--hd-region-title-bg);
+  padding: 5px 8px;
+  border-radius: 8px;
+  margin: 0;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.listTitleBlue {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  background: #e0f2fe;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.listScrollable {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  max-height: 250px;
+  padding-right: 8px;
+}
+
+.listScrollable::-webkit-scrollbar {
+  width: 6px;
+}
+
+.listScrollable::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.listScrollable::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.listItem {
+  background: #fff;
+  border: 1px solid #fecdd3;
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.listItemRed {
+  background: #fff;
+  border: 1px solid #fca5a5;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.itemStats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.statIcon {
+  color: #ef4444;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.statIconGreen {
+  color: #10b981;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.itemPercentage {
+  font-weight: 600;
+  color: #ef4444;
+  background: #fef2f2;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.progressBarBg {
+  height: 6px;
+  background: #fee2e2;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: #ef4444;
+  border-radius: 4px;
+}
+
+.navTabs {
+  display: flex;
+  gap: 24px;
+  margin: 10px 0 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.navTab {
+  padding: 6px 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  margin-bottom: -1px;
+}
+
+.navTabActive {
+  color: #0ea5e9;
+  border-bottom-color: #0ea5e9;
+}
+
+.dateChip {
+  flex-shrink: 0;
+  margin-left: auto;
+  font-size: clamp(10px, 2.1cqw, 12px);
+  font-weight: 500;
+  font-style: italic;
+  color: #1e3a8a;
+  background: #eff6ff;
+  padding: 3px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+@container (max-width: 479px) {
+  .card {
+    min-height: 360px !important;
+    max-height: none !important;
+    padding: 12px !important;
+  }
+
+  .cardContent {
+    flex: 0 0 auto !important;
+    overflow: visible !important;
+  }
+}
+
+@container (min-width: 480px) {
+  @media (min-height: 640px) {
+    .card {
+      --hd-card-pad-active: 12px;
+      min-height: 320px !important;
+      max-height: 100% !important;
+      padding: var(--hd-card-pad-active) !important;
+      border-radius: 14px !important;
+      overflow: hidden !important;
+    }
+
+    .cardHeaderDark {
+      min-height: 40px !important;
+      margin: calc(-1 * var(--hd-card-pad-active)) calc(-1 * var(--hd-card-pad-active)) 0 !important;
+      padding: 0 10px 0 var(--hd-card-pad-active) !important;
+      border-radius: 14px 14px 0 0 !important;
+      flex-wrap: nowrap !important;
+      overflow: visible !important;
+    }
+
+    .cardTitle {
+      flex: 0 0 auto;
+      font-size: 14px !important;
+      font-weight: 700 !important;
+      white-space: nowrap !important;
+    }
+
+    .dropdownGroup {
+      margin-left: auto;
+      flex: 0 0 auto;
+      gap: 6px !important;
+      flex-wrap: nowrap !important;
+    }
+
+    .customSelect {
+      width: 92px !important;
+      min-width: 92px !important;
+      height: 30px !important;
+      padding: 0 9px !important;
+      font-size: 11px !important;
+      border-radius: 9px !important;
+      white-space: nowrap !important;
+    }
+
+    .iconBtn {
+      width: 30px !important;
+      height: 30px !important;
+      flex: 0 0 30px !important;
+      border-radius: 50% !important;
+    }
+
+    .cardContent {
+      flex: 1 1 0 !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .listTitle {
+      min-height: 26px;
+      padding: 6px 8px !important;
+      font-size: 11px !important;
+      line-height: 1.2 !important;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .advanceDateRow {
+      margin: 2px 0 0 !important;
+      padding: 0 8px !important;
+      min-height: 22px !important;
+    }
+
+    .dateChip {
+      font-size: 11px !important;
+      padding: 4px 8px !important;
+      white-space: nowrap !important;
+    }
+  }
+}

@@ -1,0 +1,320 @@
+/* Invoice Status Card */
+
+.invoiceCard {
+  padding: 10px;
+  min-height: 0;
+  border-radius: 12px;
+  overflow: visible;
+}
+
+.invoiceHeader {
+  position: relative;
+  z-index: 20;
+  min-height: 38px;
+  margin: -10px -10px 0;
+  padding: 0 8px 0 10px;
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(90deg, #cbd1dd 0%, #e6e8ee 48%, #f8fafc 100%);
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.invoiceSelect {
+  height: 28px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 11px;
+  color: #0f172a;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+.invoiceHeader .invoiceSelect:nth-of-type(2) {
+  min-width: 82px;
+}
+
+.invoiceIconBtn {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  color: #1e3a8a;
+}
+
+.invoiceTabs {
+  gap: 26px;
+  margin: 4px 0 0;
+  padding-left: 0;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.invoiceTab {
+  padding: 5px 0;
+  font-size: 12px;
+  color: #334155;
+  border-bottom-width: 2px;
+}
+
+.invoiceDateChip {
+  margin-left: auto;
+  align-self: center;
+  font-size: 11px;
+  padding: 4px 9px;
+  border-radius: 3px;
+  background: #eff6ff;
+}
+
+.invoiceListTitle {
+  flex-shrink: 0;
+}
+
+.invoiceContent {
+  display: grid;
+  grid-template-columns: minmax(0, 0.65fr) minmax(0, 1fr) minmax(110px, 26%);
+  grid-template-rows: minmax(0, 1fr);
+  gap: 8px;
+  padding-top: 0;
+  align-items: stretch;
+}
+
+.invoiceSummary {
+  background: #f3f5f9;
+  border-radius: 12px;
+  padding: clamp(10px, 2cqw, 14px) clamp(8px, 2cqw, 12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.invoiceIconWrapper {
+  width: clamp(50px, 10cqw, 66px);
+  height: clamp(50px, 10cqw, 66px);
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: clamp(8px, 2cqw, 14px);
+  box-shadow: none;
+  flex-shrink: 0;
+}
+
+.invoiceIcon {
+  color: #8b5cf6;
+}
+
+.invoiceValue {
+  font-size: clamp(22px, 4.5cqw, 28px);
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: clamp(6px, 1.5cqw, 10px);
+  line-height: 1.1;
+}
+
+.invoiceLabel {
+  font-size: clamp(12px, 2.7cqw, 15px);
+  font-weight: 500;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+.invoiceChartArea {
+  min-width: 0;
+  min-height: clamp(160px, 32cqw, 230px);
+  display: flex;
+  flex-direction: column;
+}
+
+.invoiceChartCanvas {
+  flex: 1;
+  min-width: 0;
+  min-height: clamp(160px, 32cqw, 230px);
+}
+
+.invoiceListArea {
+  min-width: 0;
+  min-height: 0;
+  gap: 8px;
+  overflow-y: auto;
+  max-height: var(--hd-region-list-max-h);
+  display: flex;
+  flex-direction: column;
+  padding-right: 6px;
+}
+
+.invoiceListArea > .invoiceListTitle {
+  flex-shrink: 0;
+}
+
+.invoiceListArea::-webkit-scrollbar {
+  width: 4px;
+}
+
+.invoiceListArea::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 999px;
+}
+
+.invoiceListItem {
+  min-height: 34px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  padding: 7px 9px;
+}
+
+.invoiceRegionName {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.invoiceRegionStat {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.invoiceRegionIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  color: #fff;
+  background: #ef4444;
+  flex-shrink: 0;
+}
+
+@container home-dashboard (min-width: 1024px) {
+  @media (min-height: 640px) {
+    .invoiceContent {
+      grid-template-columns: 118px minmax(180px, 1fr) minmax(170px, 34%) !important;
+      grid-template-rows: minmax(0, 1fr) !important;
+      align-items: stretch !important;
+      gap: 10px !important;
+      flex: 1 1 0 !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .invoiceTabs {
+      flex: 0 0 auto !important;
+      gap: 28px !important;
+      margin: 5px 0 0 !important;
+      flex-wrap: nowrap !important;
+    }
+
+    .invoiceTab {
+      font-size: 12px !important;
+      padding: 5px 0 !important;
+      white-space: nowrap;
+    }
+
+    .invoiceDateChip {
+      margin-left: auto !important;
+      font-size: 11px !important;
+      padding: 4px 8px !important;
+    }
+
+    .invoiceSummary {
+      width: 118px !important;
+      min-width: 118px !important;
+      padding: 12px 8px !important;
+      border-radius: 12px !important;
+    }
+
+    .invoiceIconWrapper {
+      width: 56px !important;
+      height: 56px !important;
+      margin-bottom: 10px !important;
+    }
+
+    .invoiceValue {
+      font-size: 24px !important;
+      line-height: 1.1 !important;
+    }
+
+    .invoiceLabel {
+      font-size: 12px !important;
+      line-height: 1.35 !important;
+    }
+
+    .invoiceChartArea,
+    .invoiceChartCanvas {
+      min-width: 0 !important;
+      min-height: 0 !important;
+      height: 100% !important;
+      overflow: hidden !important;
+    }
+
+    .invoiceListArea {
+      min-width: 0 !important;
+      max-height: none !important;
+      overflow-y: auto !important;
+      gap: 8px !important;
+      padding-right: 4px !important;
+    }
+
+    .invoiceListItem {
+      flex: 0 0 auto;
+      min-height: 38px !important;
+      border-width: 1px !important;
+      border-radius: 12px !important;
+      padding: 8px 10px !important;
+      flex-wrap: nowrap !important;
+    }
+
+    .invoiceRegionName,
+    .invoiceRegionStat {
+      font-size: 12px !important;
+      white-space: nowrap;
+    }
+  }
+
+  @media (min-height: 520px) {
+    .invoiceContent {
+      grid-template-columns: 112px minmax(0, 1fr) 174px !important;
+      grid-template-rows: minmax(0, 1fr) !important;
+      gap: 10px !important;
+    }
+
+    .invoiceTabs {
+      gap: 26px !important;
+      margin: 4px 0 0 !important;
+      flex-wrap: nowrap !important;
+    }
+  }
+}
+
+@container home-dashboard (max-width: 1023px) {
+  .invoiceContent {
+    grid-template-columns: minmax(0, 0.65fr) minmax(0, 1fr) minmax(110px, 26%) !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+  }
+
+  .invoiceListArea {
+    flex: 1 1 0;
+    max-height: none;
+    overflow-y: auto;
+  }
+
+  .invoiceListArea {
+    max-height: 260px !important;
+    overflow-y: auto !important;
+  }
+}

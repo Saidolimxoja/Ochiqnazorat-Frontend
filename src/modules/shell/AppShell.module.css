@@ -78,7 +78,7 @@
 /* Chap panel butun balandlikda; yuqori panel faqat sidebar o‘ngidan boshlanadi (L/T kesishma) */
 .content {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: var(--do-sidebar-w, 280px) minmax(0, 1fr);
   grid-template-rows: var(--do-header-h, 64px) minmax(0, 1fr);
   grid-template-areas:
     'aside header'
@@ -86,6 +86,25 @@
   min-width: 0;
   min-height: 0;
   transition: grid-template-columns 0.58s cubic-bezier(0.16, 1, 0.32, 1);
+}
+
+/* Panel ochiq: workspace minimal kenglikda qoladi, layout o‘ngga kengayadi */
+.content[data-sidebar='open']:not([data-collapsed]) {
+  grid-template-columns: var(--do-sidebar-w, 280px) minmax(var(--do-workspace-min-width, 886.5px), 1fr);
+  width: max(100%, calc(var(--do-sidebar-w, 280px) + var(--do-workspace-min-width, 886.5px)));
+  min-width: calc(var(--do-sidebar-w, 280px) + var(--do-workspace-min-width, 886.5px));
+}
+
+.wrapper:has(.content[data-sidebar='open']:not([data-collapsed])) {
+  min-width: calc(var(--do-sidebar-w, 280px) + var(--do-workspace-min-width, 886.5px));
+}
+
+.frame:has(.content[data-sidebar='open']:not([data-collapsed])) {
+  min-width: calc(var(--do-sidebar-w, 280px) + var(--do-workspace-min-width, 886.5px));
+}
+
+.root:has(.content[data-sidebar='open']:not([data-collapsed])) {
+  overflow-x: clip;
 }
 
 .content[data-collapsed] {
@@ -114,6 +133,10 @@
   padding-inline: 8px;
   display: flex;
   flex-direction: column;
+}
+
+.content[data-sidebar='open']:not([data-collapsed]) .workspaceMain {
+  min-width: var(--do-workspace-min-width, 886.5px);
 }
 
 .dataError {
@@ -173,11 +196,13 @@
    * Drawer ~70vw gacha: o‘ngdagi header uchun minimal kenglik saqlanadi.
    */
   .content[data-sidebar='open'] {
-    grid-template-columns: minmax(0, min(280px, 70vw)) minmax(0, 1fr);
+    grid-template-columns: minmax(0, min(var(--do-sidebar-w, 280px), 70vw)) minmax(var(--do-workspace-min-width, 886.5px), 1fr);
     grid-template-rows: var(--do-header-row-h) minmax(0, 1fr);
     grid-template-areas:
       'aside header'
       'aside workspace';
+    width: max(100%, calc(min(var(--do-sidebar-w, 280px), 70vw) + var(--do-workspace-min-width, 886.5px)));
+    min-width: calc(min(var(--do-sidebar-w, 280px), 70vw) + var(--do-workspace-min-width, 886.5px));
   }
 
   /* Backdrop .content ichida emas — :has() bilan wrapper bo‘yicha yashirish */

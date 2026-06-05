@@ -1,0 +1,20 @@
+:root {
+  --hd-mode-edo-body-flex: 0 0 auto;
+  --hd-mode-edo-grid-gap: clamp(8px, 1.5cqw, 10px);
+  --hd-mode-edo-body-rows:
+    auto
+    auto
+    auto;
+}
+
+[data-dashboard-mode='grid'],
+[data-dashboard-mode='single'],
+[data-dashboard-mode='dual'],
+[data-dashboard-mode='triple'] {
+  --hd-mode-edo-body-flex: 1 1 0;
+  --hd-mode-edo-grid-gap: clamp(10px, 1.8cqw, 16px);
+  --hd-mode-edo-body-rows:
+    minmax(0, 1.25fr)
+    minmax(0, 0.84fr)
+    minmax(0, 1.51fr);
+}

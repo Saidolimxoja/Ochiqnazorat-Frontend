@@ -1,0 +1,393 @@
+.advanceCard {
+  container-name: advance-card;
+  min-height: 0;
+  padding: var(--hd-card-pad);
+  border-radius: var(--hd-card-radius);
+  overflow: visible;
+}
+
+.advanceHeader {
+  position: relative;
+  z-index: 20;
+  min-height: 38px;
+  margin: calc(-1 * var(--hd-card-pad-active)) calc(-1 * var(--hd-card-pad-active)) 0;
+  padding: 0 8px 0 10px;
+  border-radius: var(--hd-card-radius) var(--hd-card-radius) 0 0;
+  background: linear-gradient(90deg, #d7d9de 0%, #eceef2 48%, #f8fafc 100%);
+  overflow: visible;
+}
+
+.advanceSelect {
+  height: 28px;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 11px;
+  color: #0f172a;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+.advanceHeader .advanceSelect:nth-of-type(2) {
+  min-width: 82px;
+}
+
+.advanceIconBtn {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  color: #1e3a8a;
+}
+
+.advanceTabsRow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 2px;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 8px;
+  flex-shrink: 0;
+  min-height: 30px;
+}
+
+.advanceDateChip {
+  align-self: center;
+  margin-left: auto;
+}
+
+.advanceContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1.9fr) minmax(var(--hd-region-sidebar-min, 178px), var(--hd-region-sidebar-max, 34%));
+  grid-template-rows: minmax(0, 1fr);
+  gap: clamp(6px, 1.2cqw, var(--hd-grid-gap));
+  padding-top: 4px;
+  min-height: 0;
+  flex: var(--hd-mode-advance-content-flex, 0 0 auto);
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.advanceChartArea {
+  container-type: size;
+  container-name: advance-chart;
+  min-width: 0;
+  min-height: 0;
+  width: var(--hd-mode-advance-chart-width, auto);
+  height: var(--hd-mode-advance-chart-height, auto);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-self: var(--hd-mode-advance-chart-align-self, auto);
+  justify-content: var(--hd-mode-advance-chart-justify, flex-start);
+  gap: var(--hd-mode-advance-chart-gap, clamp(8px, 2cqw, 18px));
+  padding-left: 0;
+}
+
+.advanceDonutWrap {
+  width: var(--hd-mode-advance-donut-w, var(--hd-mode-advance-donut-size, clamp(128px, 33cqw, 190px)));
+  height: var(--hd-mode-advance-donut-h, var(--hd-mode-advance-donut-size, clamp(128px, 33cqw, 190px)));
+  min-width: 0;
+  min-height: 0;
+  max-width: min(var(--hd-mode-advance-donut-max, 100%), 100%);
+  max-height: 100%;
+  aspect-ratio: 1;
+  position: relative;
+  flex: var(--hd-mode-advance-donut-flex, 0 0 auto);
+}
+
+.legendContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--hd-mode-advance-legend-gap, clamp(14px, 4cqw, 28px));
+  min-width: 0;
+  flex: 0 0 auto;
+  max-width: min(var(--hd-mode-advance-legend-max-w, var(--hd-advance-summary-w)), 100%);
+  max-height: 100%;
+}
+
+.donutCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+  padding: 0 clamp(4px, 1.5cqw, 8px);
+  max-width: 88%;
+  box-sizing: border-box;
+}
+
+.donutLabel {
+  max-width: 100%;
+  font-size: var(--hd-mode-advance-donut-label-fs, clamp(13px, 2.5cqw, 17px));
+  font-weight: 500;
+  color: #64748b;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.donutValue {
+  font-size: var(--hd-mode-advance-donut-value-fs, clamp(22px, 4.2cqw, 28px));
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.15;
+  margin-top: 4px;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legendColor {
+  width: 4px;
+  height: clamp(32px, 18cqh, 48px);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.legendValue {
+  font-size: var(--hd-mode-advance-legend-fs, clamp(14px, 3cqw, 18px));
+  font-weight: 700;
+  color: #334155;
+}
+
+.legendRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.legendLabel {
+  font-size: clamp(11px, 2.5cqw, 14px);
+  color: #0f172a;
+}
+
+.advanceLegendIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.advanceLegendIconGreen {
+  background: #22c55e;
+}
+
+.advanceLegendIconRed {
+  background: #ef4444;
+}
+
+.legendPercent {
+  font-size: var(--hd-mode-advance-legend-fs, clamp(14px, 3.5cqw, 18px));
+  font-weight: 600;
+  color: #10b981;
+  background: #ecfdf5;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-left: auto;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.legendPercentRed {
+  color: #ef4444;
+  background: #fee2e2;
+}
+
+.advanceListArea {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.advanceListTitle {
+  flex-shrink: 0;
+  min-height: 26px;
+}
+
+.advanceRegionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding-right: 6px;
+  scrollbar-gutter: stable;
+}
+
+.advanceRegionsList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.advanceRegionsList::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.advanceRegionsList::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 3px;
+}
+
+.advanceRegionCard {
+  border: var(--hd-region-border);
+  border-radius: var(--hd-region-radius);
+  min-height: var(--hd-region-card-h);
+  padding: 8px 10px;
+  gap: 4px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.advanceRegionName {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.advanceRegionFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.advanceRegionStat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.advanceRegionSep {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.advanceItemPercentage {
+  font-size: 11px;
+  padding: 3px 7px;
+}
+
+@container advance-card (min-width: 480px) {
+  .advanceTabsRow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    column-gap: 8px;
+  }
+
+  .advanceDateChip {
+    grid-column: 3;
+    justify-self: end;
+    margin-left: 0;
+  }
+
+  @media (min-height: 640px) {
+    .advanceTabsRow {
+      min-height: 32px;
+      margin-top: 3px;
+    }
+
+    .advanceDateChip {
+      font-size: 11px !important;
+      padding: 4px 8px !important;
+    }
+
+    .advanceContent {
+      grid-template-columns: minmax(0, 1fr) minmax(var(--hd-region-sidebar-min, 178px), var(--hd-region-sidebar-max, 34%));
+      flex: var(--hd-mode-advance-content-flex, 1 1 0);
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .advanceChartArea {
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .advanceListArea {
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .advanceRegionsList {
+      flex: 1 1 0;
+      min-height: 0;
+      max-height: none;
+      overflow-y: auto;
+    }
+  }
+
+  @media (min-height: 520px) {
+    .advanceTabsRow {
+      min-height: 30px;
+      margin-top: 2px;
+    }
+
+    .advanceDateChip {
+      font-size: 11px !important;
+      padding: 3px 8px !important;
+    }
+
+    .advanceRegionsList {
+      gap: 7px !important;
+      overflow-y: auto !important;
+    }
+  }
+}
+
+@container advance-card (max-width: 479px) {
+  .advanceContent {
+    grid-template-columns: minmax(0, 1fr) minmax(130px, 26%) !important;
+    grid-template-rows: minmax(0, 1fr) !important;
+  }
+
+  .advanceChartArea {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: clamp(8px, 2cqw, 18px);
+  }
+
+  .advanceDonutWrap {
+    width: clamp(110px, 26cqw, 200px);
+    height: clamp(110px, 26cqw, 200px);
+  }
+
+  .legendContainer {
+    flex: 0 0 auto;
+    width: min(160px, 44%);
+    max-width: 160px;
+  }
+
+  .advanceRegionsList {
+    flex: 0 0 auto;
+    max-height: min(var(--hd-region-list-max-h, 309px), 42vh);
+    overflow-y: auto;
+  }
+}

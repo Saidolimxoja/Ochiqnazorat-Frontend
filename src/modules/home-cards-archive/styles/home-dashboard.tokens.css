@@ -1,0 +1,18 @@
+/**
+ * Bosh sahifa grid:
+ * - Kontent < --hd-content-wide → 1 ustun (kartalar siqilmaydi)
+ * - Kontent ≥ wide va ≥ tall → 2×2 (4 karta)
+ * Har bir ustun kamida ~512px bo‘lishi uchun wide = 1024px
+ */
+:root {
+  --hd-container-name: home-dashboard;
+  --hd-content-wide: 1024px;
+  --hd-content-tall: 520px;
+  --hd-card-col-min: 512px;
+  --hd-grid-gap: clamp(6px, 0.8vw, 10px);
+  --hd-grid-pad: clamp(8px, 1vw, 12px);
+  --hd-card-min-h-touch: 340px;
+  --hd-card-grid-min-h: 280px;
+  --hd-region-list-max-h: 309px;
+  --hd-advance-list-basis: 290px;
+}

@@ -1,0 +1,44 @@
+@import './dashboard-tokens.css';
+
+:root {
+  --hd-container-name: home-dashboard;
+  --hd-content-wide: 1024px;
+  --hd-content-tall: 520px;
+  --hd-card-col-min: 480px;
+  --hd-card-container-wide: 480px;
+  --hd-card-container-narrow: 479px;
+  --hd-grid-pad: var(--hd-grid-gap);
+  --hd-card-min-h-touch: 360px;
+  --hd-card-grid-min-h: 320px;
+  --hd-region-list-max-h: 309px;
+  --hd-advance-list-basis: 290px;
+
+  --hd-mode-revenue-gauge-width: 100%;
+  --hd-mode-revenue-gauge-max-width: 100%;
+  --hd-mode-revenue-gauge-cap: 360px;
+  --hd-mode-revenue-gauge-align-self: stretch;
+  --hd-mode-revenue-content-flex: 1 1 0;
+  --hd-mode-revenue-gauge-section-align: stretch;
+
+  --hd-mode-advance-content-flex: 0 0 auto;
+  --hd-mode-advance-chart-justify: flex-start;
+  --hd-mode-advance-chart-height: auto;
+  --hd-mode-advance-chart-align-self: auto;
+  --hd-mode-advance-chart-width: auto;
+  --hd-mode-advance-chart-gap: clamp(8px, 2cqw, 18px);
+  --hd-mode-advance-donut-size: clamp(128px, 33cqw, 190px);
+  --hd-mode-advance-donut-max: 100%;
+  --hd-mode-advance-legend-max-w: 132px;
+  --hd-mode-advance-legend-gap: 24px;
+  --hd-mode-advance-chart-stretch: 0;
+  --hd-mode-advance-donut-h: var(--hd-mode-advance-donut-size);
+  --hd-mode-advance-donut-w: var(--hd-mode-advance-donut-size);
+  --hd-mode-advance-donut-flex: 0 0 auto;
+
+  --hd-mode-invoice-content-flex: 1 1 0;
+  --hd-mode-invoice-chart-min: minmax(180px, 1fr);
+  --hd-mode-invoice-summary-width: 118px;
+
+  --hd-mode-edo-body-flex: 1 1 0;
+  --hd-mode-edo-grid-gap: clamp(8px, 1.5cqw, 16px);
+}

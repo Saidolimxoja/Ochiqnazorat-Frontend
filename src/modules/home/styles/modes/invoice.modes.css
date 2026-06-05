@@ -1,0 +1,17 @@
+:root,
+[data-dashboard-mode='grid'] {
+  --hd-mode-invoice-content-flex: 1 1 0;
+  --hd-mode-invoice-chart-min: minmax(180px, 1fr);
+  --hd-mode-invoice-summary-width: 118px;
+}
+
+[data-dashboard-mode='single'] {
+  --hd-mode-invoice-summary-width: 140px;
+}
+
+[data-dashboard-mode='grid'],
+[data-dashboard-mode='dual'],
+[data-dashboard-mode='triple'] {
+  --hd-mode-invoice-content-flex: 1 1 0;
+  --hd-mode-invoice-chart-min: minmax(160px, 1fr);
+}

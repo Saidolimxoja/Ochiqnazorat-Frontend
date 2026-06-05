@@ -1,0 +1,292 @@
+@import './home-dashboard.tokens.css';
+
+/* Kontent maydoni — tor: 1 ustun | keng: 2×2 (4 karta) */
+.container {
+  /* inline-size: size containment grid/kartalarni g‘ijim qiladi */
+  container-type: inline-size;
+  container-name: home-dashboard;
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.16), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.12), transparent 28%);
+  flex: 1 1 0;
+  min-height: 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+}
+
+.toolbarStack {
+  flex-shrink: 0;
+  flex: 0 0 auto;
+  background: transparent;
+  color: #fff;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  padding: clamp(8px, 0.8vw, 12px) clamp(10px, 1vw, 14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(30, 41, 59, 0.24));
+  box-shadow: 0 18px 42px rgba(2, 6, 23, 0.12);
+}
+
+.pageTitle {
+  font-size: clamp(1.125rem, 1vw + 0.85rem, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #fff;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(8, 14, 32, 0.45);
+}
+
+.headerActions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.locationBtn,
+.refreshBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  min-height: 40px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(12, 8, 32, 0.52);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  white-space: nowrap;
+}
+
+.locationBtn:hover,
+.refreshBtn:hover {
+  background: rgba(22, 16, 48, 0.62);
+}
+
+.locationIcon,
+.chevronIcon,
+.refreshIcon {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+/*
+ * Default: 1 ustun.
+ * auto-fit: ikkinchi ustun faqat kontent ≥ 2×card-col-min bo‘lganda sig‘adi.
+ * 769px va hokazo — doim bitta ustun.
+ */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--hd-card-col-min)), 1fr));
+  grid-auto-rows: auto;
+  align-content: start;
+  flex: 1;
+  min-height: 0;
+  gap: var(--hd-grid-gap);
+  padding: 0 var(--hd-grid-pad) var(--hd-grid-pad);
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Screenshot holati: desktopda 4 karta bitta ekranga sig‘adi. */
+@container home-dashboard (min-width: 1024px) {
+  @media (min-height: 520px) {
+    .dashboardGrid {
+      gap: 8px !important;
+      padding: 0 !important;
+      grid-template-rows: repeat(2, minmax(0, 1fr)) !important;
+      overflow: hidden !important;
+    }
+  }
+}
+
+/* Tor / o‘rta: flex ustun — kartalar ustma-ust, g‘ijim bo‘lmasin */
+@container home-dashboard (max-width: 1023px) {
+  .dashboardGrid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-content: flex-start !important;
+    flex: 1;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .dashboardGrid > * {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0;
+    position: relative;
+    isolation: isolate;
+  }
+}
+
+/* Container query ishlamasa — viewport fallback */
+@media (max-width: 1023px) {
+  .dashboardGrid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .dashboardGrid > * {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+}
+
+/* Past ekran (viewport): keng bo‘lsa ham 1 ustun */
+@media (max-height: 519px) {
+  .dashboardGrid {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .dashboardGrid > * {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+}
+
+/* To‘liq ekran: 2×2 (kenglik konteyner, balandlik viewport) */
+@container home-dashboard (min-width: 1024px) {
+  @media (min-height: 520px) {
+    .dashboardGrid {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      grid-template-rows: repeat(2, minmax(var(--hd-card-grid-min-h), 1fr)) !important;
+      grid-auto-rows: unset;
+      align-content: stretch;
+      flex: 1;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .dashboardGrid > * {
+      height: 100%;
+      min-height: 0;
+      max-height: 100%;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .pageHeader {
+    align-items: stretch;
+  }
+
+  .headerActions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .locationBtn,
+  .refreshBtn {
+    flex: 1 1 150px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 639px) {
+  .container {
+    gap: 0;
+  }
+
+  .pageHeader {
+    border-radius: 14px;
+  }
+
+  .dashboardGrid {
+    padding-inline: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .locationBtn,
+  .refreshBtn {
+    transition: none;
+  }
+}
+
+/* Production responsive contract: desktop 2×2, tablet/mobile 1 column. */
+@container home-dashboard (min-width: 1024px) {
+  @media (min-height: 640px) {
+    .dashboardGrid {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      grid-template-rows: repeat(2, minmax(320px, 1fr)) !important;
+      gap: 8px !important;
+      padding: 0 !important;
+      align-content: stretch !important;
+      overflow: hidden !important;
+    }
+
+    .dashboardGrid > * {
+      height: 100% !important;
+      min-height: 320px !important;
+      max-height: 100% !important;
+    }
+  }
+}
+
+@container home-dashboard (max-width: 1023px) {
+  .dashboardGrid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: auto !important;
+    gap: 12px !important;
+    padding: 0 8px 12px !important;
+    overflow-y: auto !important;
+  }
+
+  .dashboardGrid > * {
+    height: auto !important;
+    min-height: 360px !important;
+    max-height: none !important;
+  }
+}
+
+@media (max-height: 639px) {
+  .dashboardGrid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: auto !important;
+    overflow-y: auto !important;
+  }
+
+  .dashboardGrid > * {
+    height: auto !important;
+    min-height: 340px !important;
+    max-height: none !important;
+  }
+}

@@ -90,12 +90,28 @@ export function HomeReportTable({ rows }: Props) {
           <div className={styles.pageIndicator}>1/2</div>
           <div className={styles.navArrows}>
             <button type="button" className={styles.arrowBtn} disabled aria-label="Oldingi sahifa">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden
+              >
                 <polyline points="15 18 9 12 15 6" />
               </svg>
             </button>
             <button type="button" className={styles.arrowBtn} aria-label="Keyingi sahifa">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden
+              >
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </button>
