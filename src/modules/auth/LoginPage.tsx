@@ -32,7 +32,7 @@ export function LoginPage() {
       await signIn({ username: login, password })
       removeToast(loadingId)
       success('Muvaffaqiyatli kirildi!')
-      setTimeout(() => router.push('/'), 500)
+      setTimeout(() => router.push('/home'), 500)
     } catch (err: any) {
       removeToast(loadingId)
       const errorMessage = err.message || 'Login yoki parol noto\'g\'ri!'
@@ -51,7 +51,7 @@ export function LoginPage() {
       await signIn({ username: 'admin', password: 'admin123' })
       removeToast(loadingId)
       success('Muvaffaqiyatli kirildi!')
-      setTimeout(() => router.push('/'), 500)
+      setTimeout(() => router.push('/home'), 500)
     } catch (err: any) {
       removeToast(loadingId)
       const errorMessage = err.message || 'Xatolik yuz berdi!'

@@ -2,15 +2,10 @@
 
 import { startTransition, useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { SIDEBAR_ENTRIES, SIDEBAR_STATS, type SidebarEntry } from './sidebar-entries'
 import { IconChevron } from '@/shared/ui/icons'
 import styles from './Sidebar.module.css'
-
-const TASK_MODULES: { id: string; label: string }[] = [
-  { id: 'task-edo', label: 'EDO' },
-  { id: 'task-kadr', label: 'Kadr' },
-  { id: 'task-byudjet', label: 'Byudjet' },
-]
 
 const ALL_ENTRIES: SidebarEntry[] = [...SIDEBAR_ENTRIES, ...SIDEBAR_STATS]
 
@@ -23,59 +18,62 @@ function parentPanelIdForLeaf(leafId: string): string | undefined {
   return undefined
 }
 
+function getActiveIdFromPathname(pathname: string): string | null {
+  const pathToId: Record<string, string> = {
+    '/home': 'home',
+    '/dashboard': 'joriy-etish',
+    '/iq-edo': 'iq-edo',
+    '/balance': 'iq-balans',
+    '/reports': 'ishlar-hisoboti',
+    '/attendance': 'ishga-kelish',
+    '/resources': 'moddiy-texnik',
+    '/admin': 'admin',
+  }
+  return pathToId[pathname] || null
+}
+
 type Props = {
   collapsed: boolean
   layoutTransition?: boolean
-  navActiveId: string | null
-  onNavChange: (id: string | null) => void
 }
 
-export function Sidebar({ collapsed, layoutTransition = true, navActiveId, onNavChange }: Props) {
-  const [openPanelId, setOpenPanelId] = useState<string | null>(() => {
-    if (navActiveId == null) return null
-    return parentPanelIdForLeaf(navActiveId) ?? null
-  })
+export function Sidebar({ collapsed, layoutTransition = true }: Props) {
+  const pathname = usePathname()
+  const [openPanelId, setOpenPanelId] = useState<string | null>(null)
   const openPanelIdRef = useRef(openPanelId)
 
   useEffect(() => {
     openPanelIdRef.current = openPanelId
   }, [openPanelId])
 
-  const togglePanel = useCallback(
-    (id: string) => {
-      const cur = openPanelIdRef.current
-      const closing = cur === id
-
-      if (closing && navActiveId != null && parentPanelIdForLeaf(navActiveId) === id) {
-        onNavChange(null)
-      }
-
-      setOpenPanelId(closing ? null : id)
-    },
-    [navActiveId, onNavChange],
-  )
+  const togglePanel = useCallback((id: string) => {
+    const cur = openPanelIdRef.current
+    const closing = cur === id
+    setOpenPanelId(closing ? null : id)
+  }, [])
 
   useEffect(() => {
-    if (navActiveId == null) return
-    const pid = parentPanelIdForLeaf(navActiveId)
+    const activeId = getActiveIdFromPathname(pathname)
+    if (activeId == null) return
+    const pid = parentPanelIdForLeaf(activeId)
     if (pid != null) {
       startTransition(() => setOpenPanelId(pid))
     }
-  }, [navActiveId])
+  }, [pathname])
 
   const renderEntry = useCallback(
     (entry: SidebarEntry) => {
       if (entry.kind === 'link') {
         const Icon = entry.Icon
-        const active = navActiveId != null && navActiveId === entry.id
+        const activeId = getActiveIdFromPathname(pathname)
+        const active = activeId === entry.id
         const row = entry.trailingChevron ? styles.navLinkSpread : undefined
         return (
-          <button
+          <Link
             key={entry.id}
-            type="button"
+            href={entry.href}
             className={[styles.navLink, row].filter(Boolean).join(' ')}
             data-active={active || undefined}
-            onClick={() => onNavChange(entry.id)}
           >
             <span className={styles.navLinkStart}>
               <Icon className={styles.navIcon} />
@@ -84,7 +82,7 @@ export function Sidebar({ collapsed, layoutTransition = true, navActiveId, onNav
             {entry.trailingChevron ? (
               <IconChevron className={styles.linkChevron} down={false} />
             ) : null}
-          </button>
+          </Link>
         )
       }
 
@@ -109,17 +107,17 @@ export function Sidebar({ collapsed, layoutTransition = true, navActiveId, onNav
             {open ? (
               <ul className={styles.subList}>
                 {panel.children.map((leaf) => {
-                  const subActive = navActiveId != null && navActiveId === leaf.id
+                  const activeId = getActiveIdFromPathname(pathname)
+                  const subActive = activeId === leaf.id
                   return (
                     <li key={leaf.id}>
-                      <button
-                        type="button"
+                      <Link
+                        href={leaf.href || '#'}
                         className={styles.subLink}
                         data-active={subActive || undefined}
-                        onClick={() => onNavChange(leaf.id)}
                       >
                         {leaf.label}
-                      </button>
+                      </Link>
                     </li>
                   )
                 })}
@@ -129,7 +127,7 @@ export function Sidebar({ collapsed, layoutTransition = true, navActiveId, onNav
         </div>
       )
     },
-    [navActiveId, openPanelId, togglePanel, onNavChange],
+    [pathname, openPanelId, togglePanel],
   )
 
   return (
@@ -143,7 +141,7 @@ export function Sidebar({ collapsed, layoutTransition = true, navActiveId, onNav
         aria-hidden={collapsed || undefined}
       >
         <div className={styles.brandRow}>
-          <Link href="/" className={styles.brandLink} onClick={() => onNavChange('home')}>
+          <Link href="/home" className={styles.brandLink}>
             <img
               src="/images/brand-ochiq-nazorat.png"
               alt="Ochiq nazorat"

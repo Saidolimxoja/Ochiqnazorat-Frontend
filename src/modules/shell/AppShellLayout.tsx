@@ -1,12 +1,8 @@
+'use client'
+
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { AdminPanel } from '@/modules/admin'
-import { EconomicEdoUsage } from '@/modules/economic-edo/EconomicEdoUsage'
-import { HomeDashboard } from '@/modules/home'
 import { Header } from '@/modules/layout/header'
 import { Sidebar } from '@/modules/layout/sidebar'
-import { Workspace } from '@/modules/workspace'
-import { useDocuments } from '@/shared/hooks'
 import styles from './AppShell.module.css'
 
 const SIDEBAR_AUTO_COLLAPSE_MQ = '(max-width: 960px)'
@@ -16,27 +12,14 @@ function readNarrowViewport(): boolean {
   return window.matchMedia(SIDEBAR_AUTO_COLLAPSE_MQ).matches
 }
 
-export function AppShell() {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+type Props = {
+  children: React.ReactNode
+}
+
+export function AppShellLayout({ children }: Props) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(readNarrowViewport)
   const [suppressLayoutTransition, setSuppressLayoutTransition] = useState(false)
-  const [selectedId, setSelectedId] = useState<string | null>(null)
-  const [navId, setNavId] = useState<string | null>('home')
   const userClosedSidebarRef = useRef(false)
-
-  const { documents, status: docStatus, error: docError } = useDocuments()
-
-  // Синхронизируем URL с navId
-  useEffect(() => {
-    const tab = searchParams.get('tab') || 'home'
-    setNavId(tab)
-  }, [searchParams])
-
-  const handleNavChange = useCallback((newNavId: string | null) => {
-    setNavId(newNavId)
-    router.push(`/?tab=${newNavId || 'home'}`)
-  }, [router])
 
   const closeSidebar = useCallback(() => {
     userClosedSidebarRef.current = true
@@ -122,30 +105,11 @@ export function AppShell() {
               compactMobileTray={!sidebarCollapsed}
             />
             <main className={styles.workspaceMain}>
-              {navId === 'home' ? (
-                <HomeDashboard />
-              ) : navId === 'admin' ? (
-                <AdminPanel />
-              ) : navId === 'iq-edo' ? (
-                <EconomicEdoUsage />
-              ) : docStatus === 'error' ? (
-                <div className={styles.dataError} role="alert">
-                  Hujjatlar royxati yuklanmadi.
-                  {docError instanceof Error ? ` ${docError.message}` : ''}
-                </div>
-              ) : docStatus === 'loading' && documents.length === 0 ? (
-                <div className={styles.dataLoading} aria-busy>
-                  Hujjatlar yuklanmoqda…
-                </div>
-              ) : (
-                <Workspace documents={documents} selectedId={selectedId} onSelect={setSelectedId} />
-              )}
+              {children}
             </main>
             <Sidebar
               collapsed={sidebarCollapsed}
               layoutTransition={!suppressLayoutTransition}
-              navActiveId={navId}
-              onNavChange={handleNavChange}
             />
           </div>
         </div>
