@@ -112,6 +112,7 @@ export function LoginPage() {
                   placeholder="Loginni kiriting"
                   className={styles.input}
                   required
+                  autoComplete="username"
                 />
               </div>
 
@@ -127,6 +128,7 @@ export function LoginPage() {
                     placeholder="Parolni kiriting"
                     className={styles.input}
                     required
+                    autoComplete="current-password"
                   />
                   <button
                     type="button"
