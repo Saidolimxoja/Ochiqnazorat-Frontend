@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://consoles-disposal-edward-chairs.trycloudflare.com/api/v1';
 
 // Проверяем, содержит ли URL уже /api/v1
 const shouldAddPrefix = API_URL ? !API_URL.includes('/api/v1') : true;
