@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || ''
 
 const shouldAddPrefix = API_URL ? !API_URL.includes('/api/v1') : true
 
@@ -35,7 +35,7 @@ class UsersApiClient {
   private baseUrl: string
 
   constructor() {
-    this.baseUrl = API_URL
+    this.baseUrl = API_URL || ''
   }
 
   private getAuthToken(): string | null {
@@ -44,6 +44,10 @@ class UsersApiClient {
   }
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
+    if (!this.baseUrl) {
+      throw new Error('API URL is not configured. Set NEXT_PUBLIC_API_URL environment variable.')
+    }
+
     const token = this.getAuthToken()
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
