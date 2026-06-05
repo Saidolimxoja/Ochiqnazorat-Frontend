@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { AdminPanel } from '@/modules/admin'
 import { EconomicEdoUsage } from '@/modules/economic-edo/EconomicEdoUsage'
 import { HomeDashboard } from '@/modules/home'
@@ -16,6 +17,8 @@ function readNarrowViewport(): boolean {
 }
 
 export function AppShell() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [sidebarCollapsed, setSidebarCollapsed] = useState(readNarrowViewport)
   const [suppressLayoutTransition, setSuppressLayoutTransition] = useState(false)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -23,6 +26,17 @@ export function AppShell() {
   const userClosedSidebarRef = useRef(false)
 
   const { documents, status: docStatus, error: docError } = useDocuments()
+
+  // Синхронизируем URL с navId
+  useEffect(() => {
+    const tab = searchParams.get('tab') || 'home'
+    setNavId(tab)
+  }, [searchParams])
+
+  const handleNavChange = useCallback((newNavId: string | null) => {
+    setNavId(newNavId)
+    router.push(`/?tab=${newNavId || 'home'}`)
+  }, [router])
 
   const closeSidebar = useCallback(() => {
     userClosedSidebarRef.current = true
@@ -131,7 +145,7 @@ export function AppShell() {
               collapsed={sidebarCollapsed}
               layoutTransition={!suppressLayoutTransition}
               navActiveId={navId}
-              onNavChange={setNavId}
+              onNavChange={handleNavChange}
             />
           </div>
         </div>
