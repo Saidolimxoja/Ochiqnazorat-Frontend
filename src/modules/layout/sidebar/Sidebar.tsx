@@ -154,7 +154,6 @@ export function Sidebar({ collapsed, layoutTransition = true }: Props) {
         </div>
 
         <nav className={styles.nav}>
-          <h2 className={styles.sectionTitle}>Ichki hujjatlar</h2>
           <div className={styles.navGroup}>{SIDEBAR_ENTRIES.map(renderEntry)}</div>
 
           {SIDEBAR_STATS.length > 0 ? (
