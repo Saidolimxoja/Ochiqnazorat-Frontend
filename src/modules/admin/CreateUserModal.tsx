@@ -260,36 +260,21 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
           </div>
 
           <div className={styles.formGroup}>
-            <label>Роли *</label>
-            <div className={styles.checkboxGroup}>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formData.role_ids.includes('admin')}
-                  onChange={(e) => handleRoleChange('admin', e.target.checked)}
-                  disabled={loading}
-                />
-                Администратор
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formData.role_ids.includes('user')}
-                  onChange={(e) => handleRoleChange('user', e.target.checked)}
-                  disabled={loading}
-                />
-                Пользователь
-              </label>
-              <label>
-                <input
-                  type="checkbox"
-                  checked={formData.role_ids.includes('viewer')}
-                  onChange={(e) => handleRoleChange('viewer', e.target.checked)}
-                  disabled={loading}
-                />
-                Просмотр
-              </label>
-            </div>
+            <label>Роли (UUID, через запятую) *</label>
+            <input
+              type="text"
+              value={formData.role_ids.join(', ')}
+              onChange={(e) => {
+                const ids = e.target.value
+                  .split(',')
+                  .map((id) => id.trim())
+                  .filter(Boolean)
+                setFormData({ ...formData, role_ids: ids })
+              }}
+              className={errors.role_ids ? styles.inputError : ''}
+              disabled={loading}
+              placeholder="6a0b0ebf-031c-a000-0145-3eb2, 6a0b0ebf-031c-a000-0145-3eb3"
+            />
             {errors.role_ids && <span className={styles.error}>{errors.role_ids}</span>}
           </div>
 
