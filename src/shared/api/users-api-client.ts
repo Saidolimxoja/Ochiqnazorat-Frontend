@@ -44,10 +44,6 @@ class UsersApiClient {
   }
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    if (!this.baseUrl) {
-      throw new Error('API URL is not configured. Set NEXT_PUBLIC_API_URL environment variable.')
-    }
-
     const token = this.getAuthToken()
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
