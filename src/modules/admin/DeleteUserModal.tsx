@@ -1,15 +1,28 @@
 'use client'
 
+import { useState } from 'react'
 import styles from './DeleteUserModal.module.css'
 import type { User } from './AdminPanel'
 
 type Props = {
   user: User
   onClose: () => void
-  onConfirmDelete: () => void
+  onConfirmDelete: (reason: string) => void
 }
 
 export function DeleteUserModal({ user, onClose, onConfirmDelete }: Props) {
+  const [reason, setReason] = useState('')
+  const [touched, setTouched] = useState(false)
+
+  const trimmed = reason.trim()
+  const isValid = trimmed.length > 0
+
+  const handleConfirm = () => {
+    setTouched(true)
+    if (!isValid) return
+    onConfirmDelete(trimmed)
+  }
+
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
@@ -40,13 +53,28 @@ export function DeleteUserModal({ user, onClose, onConfirmDelete }: Props) {
               </p>
             )}
           </div>
+
+          <div className={styles.reasonGroup}>
+            <label htmlFor="delete_reason">Причина удаления *</label>
+            <textarea
+              id="delete_reason"
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+              className={touched && !isValid ? styles.inputError : ''}
+              placeholder="Например: Пользователь уволен"
+              rows={3}
+              maxLength={500}
+              autoFocus
+            />
+            {touched && !isValid && <span className={styles.error}>Укажите причину удаления</span>}
+          </div>
         </div>
 
         <div className={styles.actions}>
           <button className={styles.cancelBtn} onClick={onClose}>
             Отмена
           </button>
-          <button className={styles.deleteBtn} onClick={onConfirmDelete}>
+          <button className={styles.deleteBtn} onClick={handleConfirm} disabled={!isValid}>
             Удалить
           </button>
         </div>

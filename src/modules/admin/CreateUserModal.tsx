@@ -1,15 +1,29 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './CreateUserModal.module.css'
 import type { User } from './AdminPanel'
 import { usersApiClient } from '@/shared/api/users-api-client'
+import {
+  referencesApiClient,
+  type District,
+  type Organization,
+  type Position,
+  type Region,
+  type Role,
+} from '@/shared/api/references-api-client'
 
 type Props = {
   onClose: () => void
   onCreateUser: (user: User) => void
   onError: (error: string) => void
 }
+
+const LEVELS = [
+  { value: 'department', label: 'Департамент' },
+  { value: 'region', label: 'Регион' },
+  { value: 'district', label: 'Район' },
+]
 
 export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
   const [formData, setFormData] = useState({
@@ -23,10 +37,81 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
     level: 'department',
     org_id: '',
     role_ids: [] as string[],
+    position_id: '',
+    region_id: '',
+    district_id: '',
   })
+
+  const [organizations, setOrganizations] = useState<Organization[]>([])
+  const [roles, setRoles] = useState<Role[]>([])
+  const [regions, setRegions] = useState<Region[]>([])
+  const [districts, setDistricts] = useState<District[]>([])
+  const [positions, setPositions] = useState<Position[]>([])
 
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(false)
+  const [loadingRefs, setLoadingRefs] = useState(true)
+
+  useEffect(() => {
+    let cancelled = false
+    const loadReferences = async () => {
+      try {
+        const [orgs, roleList, regionList] = await Promise.all([
+          referencesApiClient.getOrganizations(),
+          referencesApiClient.getRoles(),
+          referencesApiClient.getRegions(),
+        ])
+        if (cancelled) return
+        setOrganizations(orgs)
+        setRoles(roleList)
+        setRegions(regionList)
+      } catch (err) {
+        if (!cancelled) {
+          onError(err instanceof Error ? err.message : 'Ошибка загрузки справочников')
+        }
+      } finally {
+        if (!cancelled) setLoadingRefs(false)
+      }
+    }
+    void loadReferences()
+    return () => {
+      cancelled = true
+    }
+  }, [onError])
+
+  // Должности зависят от выбранной организации
+  useEffect(() => {
+    if (!formData.org_id) return
+    let cancelled = false
+    referencesApiClient
+      .getPositions(formData.org_id)
+      .then((list) => {
+        if (!cancelled) setPositions(list)
+      })
+      .catch(() => {
+        if (!cancelled) setPositions([])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [formData.org_id])
+
+  // Районы зависят от выбранного региона
+  useEffect(() => {
+    if (!formData.region_id) return
+    let cancelled = false
+    referencesApiClient
+      .getDistricts(formData.region_id)
+      .then((list) => {
+        if (!cancelled) setDistricts(list)
+      })
+      .catch(() => {
+        if (!cancelled) setDistricts([])
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [formData.region_id])
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -54,7 +139,7 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
 
     if (!formData.level) newErrors.level = 'Уровень доступа обязателен'
 
-    if (!formData.org_id) newErrors.org_id = 'Организация обязательна'
+    if (!formData.org_id) newErrors.org_id = 'Выберите организацию'
 
     if (formData.role_ids.length === 0) newErrors.role_ids = 'Выберите минимум одну роль'
 
@@ -80,21 +165,12 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
         level: formData.level,
         org_id: formData.org_id,
         role_ids: formData.role_ids,
+        ...(formData.position_id ? { position_id: formData.position_id } : {}),
+        ...(formData.region_id ? { region_id: formData.region_id } : {}),
+        ...(formData.district_id ? { district_id: formData.district_id } : {}),
       })
 
       onCreateUser(response)
-      setFormData({
-        full_name: '',
-        pinfl: '',
-        birthday_date: '',
-        phone_number: '',
-        username: '',
-        password: '',
-        responsible_module: '',
-        level: 'department',
-        org_id: '',
-        role_ids: [],
-      })
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Ошибка создания пользователя'
       onError(errorMessage)
@@ -104,10 +180,12 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
     }
   }
 
-  const handleRoleChange = (roleId: string, checked: boolean) => {
+  const handleRoleToggle = (roleId: string) => {
     setFormData((prev) => ({
       ...prev,
-      role_ids: checked ? [...prev.role_ids, roleId] : prev.role_ids.filter((id) => id !== roleId),
+      role_ids: prev.role_ids.includes(roleId)
+        ? prev.role_ids.filter((id) => id !== roleId)
+        : [...prev.role_ids, roleId],
     }))
   }
 
@@ -132,6 +210,7 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
               className={errors.full_name ? styles.inputError : ''}
               disabled={loading}
               maxLength={255}
+              placeholder="Иванов Иван Иванович"
             />
             {errors.full_name && <span className={styles.error}>{errors.full_name}</span>}
           </div>
@@ -193,6 +272,7 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
                 disabled={loading}
                 maxLength={100}
                 minLength={3}
+                placeholder="ivanov"
               />
               {errors.username && <span className={styles.error}>{errors.username}</span>}
             </div>
@@ -208,6 +288,7 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
               className={errors.password ? styles.inputError : ''}
               disabled={loading}
               minLength={6}
+              placeholder="Минимум 6 символов"
             />
             {errors.password && <span className={styles.error}>{errors.password}</span>}
           </div>
@@ -237,44 +318,117 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
                 className={errors.level ? styles.inputError : ''}
                 disabled={loading}
               >
-                <option value="department">Department</option>
-                <option value="region">Region</option>
-                <option value="district">District</option>
+                {LEVELS.map((level) => (
+                  <option key={level.value} value={level.value}>
+                    {level.label}
+                  </option>
+                ))}
               </select>
               {errors.level && <span className={styles.error}>{errors.level}</span>}
             </div>
           </div>
 
           <div className={styles.formGroup}>
-            <label htmlFor="org_id">Организация (UUID) *</label>
-            <input
+            <label htmlFor="org_id">Организация *</label>
+            <select
               id="org_id"
-              type="text"
               value={formData.org_id}
-              onChange={(e) => setFormData({ ...formData, org_id: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, org_id: e.target.value, position_id: '' })
+                setPositions([])
+              }}
               className={errors.org_id ? styles.inputError : ''}
-              disabled={loading}
-              placeholder="6a0b0ebf031ca00001453eb0"
-            />
+              disabled={loading || loadingRefs}
+            >
+              <option value="">{loadingRefs ? 'Загрузка...' : 'Выберите организацию'}</option>
+              {organizations.map((org) => (
+                <option key={org.id} value={org.id}>
+                  {org.name}
+                </option>
+              ))}
+            </select>
             {errors.org_id && <span className={styles.error}>{errors.org_id}</span>}
           </div>
 
+          <div className={styles.formRow}>
+            <div className={styles.formGroup}>
+              <label htmlFor="region_id">Регион</label>
+              <select
+                id="region_id"
+                value={formData.region_id}
+                onChange={(e) => {
+                  setFormData({ ...formData, region_id: e.target.value, district_id: '' })
+                  setDistricts([])
+                }}
+                disabled={loading || loadingRefs}
+              >
+                <option value="">Не выбран</option>
+                {regions.map((region) => (
+                  <option key={region.id} value={region.id}>
+                    {region.name_of_region}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="district_id">Район</label>
+              <select
+                id="district_id"
+                value={formData.district_id}
+                onChange={(e) => setFormData({ ...formData, district_id: e.target.value })}
+                disabled={loading || !formData.region_id}
+              >
+                <option value="">{formData.region_id ? 'Не выбран' : 'Сначала выберите регион'}</option>
+                {districts.map((district) => (
+                  <option key={district.id} value={district.id}>
+                    {district.name_of_district}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           <div className={styles.formGroup}>
-            <label>Роли (UUID, через запятую) *</label>
-            <input
-              type="text"
-              value={formData.role_ids.join(', ')}
-              onChange={(e) => {
-                const ids = e.target.value
-                  .split(',')
-                  .map((id) => id.trim())
-                  .filter(Boolean)
-                setFormData({ ...formData, role_ids: ids })
-              }}
-              className={errors.role_ids ? styles.inputError : ''}
-              disabled={loading}
-              placeholder="6a0b0ebf-031c-a000-0145-3eb2, 6a0b0ebf-031c-a000-0145-3eb3"
-            />
+            <label htmlFor="position_id">Должность</label>
+            <select
+              id="position_id"
+              value={formData.position_id}
+              onChange={(e) => setFormData({ ...formData, position_id: e.target.value })}
+              disabled={loading || !formData.org_id}
+            >
+              <option value="">{formData.org_id ? 'Не выбрана' : 'Сначала выберите организацию'}</option>
+              {positions.map((position) => (
+                <option key={position.id} value={position.id}>
+                  {position.name_ru}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.formGroup}>
+            <label>Роли *</label>
+            {loadingRefs ? (
+              <span className={styles.hint}>Загрузка ролей...</span>
+            ) : (
+              <div className={styles.rolesGrid}>
+                {roles.map((role) => {
+                  const checked = formData.role_ids.includes(role.id)
+                  return (
+                    <button
+                      type="button"
+                      key={role.id}
+                      className={`${styles.roleChip} ${checked ? styles.roleChipActive : ''}`}
+                      onClick={() => handleRoleToggle(role.id)}
+                      disabled={loading}
+                      title={role.description ?? undefined}
+                    >
+                      {role.name_of_role}
+                    </button>
+                  )
+                })}
+              </div>
+            )}
             {errors.role_ids && <span className={styles.error}>{errors.role_ids}</span>}
           </div>
 
@@ -282,7 +436,7 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
             <button type="button" className={styles.cancelBtn} onClick={onClose} disabled={loading}>
               Отмена
             </button>
-            <button type="submit" className={styles.submitBtn} disabled={loading}>
+            <button type="submit" className={styles.submitBtn} disabled={loading || loadingRefs}>
               {loading ? 'Создание...' : 'Создать пользователя'}
             </button>
           </div>

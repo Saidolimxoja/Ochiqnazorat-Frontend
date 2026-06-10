@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import styles from './AdminPanel.module.css'
 import { AdminUsersTable } from './AdminUsersTable'
 import { CreateUserModal } from './CreateUserModal'
@@ -18,11 +18,7 @@ export function AdminPanel() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
 
-  useEffect(() => {
-    loadUsers()
-  }, [])
-
-  const loadUsers = async () => {
+  const loadUsers = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -34,7 +30,26 @@ export function AdminPanel() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const response = await usersApiClient.getUsers(1, 100)
+        if (!cancelled) setUsers(response.data)
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof Error ? err.message : 'Ошибка загрузки пользователей')
+        }
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   const filteredUsers = users.filter(
     (user) =>
@@ -42,19 +57,33 @@ export function AdminPanel() {
       (user.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) || false),
   )
 
-  const handleCreateUser = async (newUser: User) => {
-    setUsers([...users, newUser])
+  const handleCreateUser = async () => {
     setShowCreateModal(false)
+    await loadUsers()
   }
 
-  const handleDeleteUser = async (userId: string) => {
+  const handleDeleteUser = async (userId: string, reason: string) => {
     try {
-      await usersApiClient.deleteUser(userId)
+      await usersApiClient.deleteUser(userId, reason)
       setUsers(users.filter((u) => u.id !== userId))
       setShowDeleteModal(false)
       setSelectedUser(null)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка удаления пользователя')
+    }
+  }
+
+  const handleToggleBlock = async (user: User) => {
+    try {
+      setError(null)
+      const updated = user.is_blocked
+        ? await usersApiClient.unblockUser(user.id)
+        : await usersApiClient.blockUser(user.id)
+      setUsers((prev) =>
+        prev.map((u) => (u.id === user.id ? { ...u, is_blocked: updated.is_blocked } : u)),
+      )
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка изменения статуса')
     }
   }
 
@@ -87,7 +116,11 @@ export function AdminPanel() {
       {loading ? (
         <div className={styles.loadingMessage}>Загрузка пользователей...</div>
       ) : (
-        <AdminUsersTable users={filteredUsers} onDeleteClick={handleOpenDeleteModal} />
+        <AdminUsersTable
+          users={filteredUsers}
+          onDeleteClick={handleOpenDeleteModal}
+          onToggleBlock={handleToggleBlock}
+        />
       )}
 
       {showCreateModal && (
@@ -105,7 +138,7 @@ export function AdminPanel() {
             setShowDeleteModal(false)
             setSelectedUser(null)
           }}
-          onConfirmDelete={() => handleDeleteUser(selectedUser.id)}
+          onConfirmDelete={(reason) => handleDeleteUser(selectedUser.id, reason)}
         />
       )}
     </div>

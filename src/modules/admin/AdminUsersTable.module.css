@@ -1,8 +1,9 @@
 .tableContainer {
-  background: white;
-  border-radius: 8px;
+  background: #fff;
+  border-radius: var(--do-radius-panel);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #eef1f5;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.06);
 }
 
 .table {
@@ -12,63 +13,149 @@
 }
 
 .table thead {
-  background: #f8f9fa;
-  border-bottom: 2px solid #dee2e6;
+  background: var(--do-surface-light);
 }
 
 .table th {
-  padding: 16px;
+  padding: 14px 16px;
   text-align: left;
   font-weight: 600;
-  color: #495057;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--do-text-secondary);
   white-space: nowrap;
+  border-bottom: 1px solid #e7ebf0;
 }
 
 .table td {
-  padding: 16px;
-  border-bottom: 1px solid #dee2e6;
-  color: #212529;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f4f8;
+  color: var(--do-text);
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: background 0.15s ease;
 }
 
 .table tbody tr:hover {
-  background: #f8f9fa;
+  background: #f8fafc;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.userCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.userName {
+  font-weight: 600;
+  color: var(--do-text);
+}
+
+.userLogin {
+  font-size: 12px;
+  color: var(--do-text-muted);
+}
+
+.rolesCell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.roleTag {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--do-primary-light-100);
+  color: var(--do-primary-deep);
+}
+
+.muted {
+  color: var(--do-text-muted);
 }
 
 .emptyRow {
   text-align: center;
-  color: #6c757d;
-  padding: 32px 16px !important;
+  color: var(--do-text-secondary);
+  padding: 40px 16px !important;
 }
 
 .status {
   display: inline-block;
   padding: 4px 12px;
-  border-radius: 4px;
+  border-radius: 999px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .active {
-  background: #d4edda;
-  color: #155724;
+  background: #ecfdf3;
+  color: #027a48;
 }
 
 .blocked {
-  background: #f8d7da;
-  color: #721c24;
+  background: #fef3f2;
+  color: #b42318;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.blockBtn,
+.unblockBtn,
+.deleteBtn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: var(--do-radius);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.blockBtn {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fed7aa;
+}
+
+.blockBtn:hover {
+  background: #ffedd5;
+}
+
+.unblockBtn {
+  background: #ecfdf3;
+  color: #027a48;
+  border: 1px solid #abefc6;
+}
+
+.unblockBtn:hover {
+  background: #d1fadf;
 }
 
 .deleteBtn {
-  padding: 6px 12px;
-  background: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s;
+  background: #fff;
+  color: #b42318;
+  border: 1px solid #fecdca;
 }
 
 .deleteBtn:hover {
-  background: #c82333;
+  background: #fef3f2;
 }

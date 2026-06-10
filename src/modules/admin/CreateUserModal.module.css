@@ -1,22 +1,22 @@
 .modalOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: var(--do-bg-scrim, rgba(8, 14, 32, 0.45));
+  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 16px;
+  font-family: var(--do-font);
 }
 
 .modal {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  max-width: 500px;
-  width: 90%;
+  background: #fff;
+  border-radius: var(--do-radius-panel);
+  box-shadow: 0 24px 60px rgba(8, 14, 32, 0.24);
+  max-width: 560px;
+  width: 100%;
   max-height: 90vh;
   overflow-y: auto;
 }
@@ -25,38 +25,46 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #dee2e6;
+  padding: 20px 24px;
+  border-bottom: 1px solid #eef1f5;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
 }
 
 .header h2 {
   margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a1a1a;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--do-text);
 }
 
 .closeBtn {
   background: none;
   border: none;
-  font-size: 24px;
-  color: #6c757d;
+  font-size: 20px;
+  color: var(--do-text-muted);
   cursor: pointer;
   padding: 0;
   width: 32px;
   height: 32px;
+  border-radius: var(--do-radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
 }
 
 .closeBtn:hover {
-  color: #1a1a1a;
+  color: var(--do-text);
+  background: var(--do-surface-light);
 }
 
 .form {
-  padding: 20px;
+  padding: 20px 24px 24px;
 }
 
 .formGroup {
@@ -72,74 +80,160 @@
 .formGroup label {
   display: block;
   margin-bottom: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #212529;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--do-text);
 }
 
-.formGroup input {
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--do-radius);
   font-size: 14px;
-  transition: border-color 0.2s;
+  color: var(--do-text);
+  background: #fff;
+  font-family: inherit;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
   box-sizing: border-box;
 }
 
-.formGroup input:focus {
+.formGroup input::placeholder {
+  color: var(--do-text-muted);
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  border-color: var(--do-primary);
+  box-shadow: 0 0 0 3px var(--do-primary-light-100);
+}
+
+.formGroup select:disabled,
+.formGroup input:disabled {
+  background: var(--do-surface-light);
+  color: var(--do-text-muted);
+  cursor: not-allowed;
 }
 
 .inputError {
-  border-color: #dc3545 !important;
+  border-color: #f04438 !important;
 }
 
 .error {
   display: block;
-  margin-top: 4px;
+  margin-top: 5px;
   font-size: 12px;
-  color: #dc3545;
+  color: #d92d20;
+}
+
+.hint {
+  display: block;
+  font-size: 13px;
+  color: var(--do-text-muted);
+  padding: 8px 0;
+}
+
+.rolesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.roleChip {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: var(--do-text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.16s ease,
+    color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.roleChip:hover {
+  border-color: var(--do-primary);
+  color: var(--do-primary-deep);
+}
+
+.roleChipActive {
+  background: var(--do-primary);
+  border-color: var(--do-primary);
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 163, 255, 0.26);
+}
+
+.roleChipActive:hover {
+  color: #fff;
+  background: var(--do-primary-strong);
+}
+
+.roleChip:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .actions {
   display: flex;
   gap: 12px;
   justify-content: flex-end;
-  padding-top: 16px;
-  border-top: 1px solid #dee2e6;
+  padding-top: 18px;
+  margin-top: 4px;
+  border-top: 1px solid #eef1f5;
 }
 
 .cancelBtn {
   padding: 10px 20px;
-  background: #e9ecef;
-  color: #212529;
-  border: none;
-  border-radius: 4px;
+  background: #fff;
+  color: var(--do-text);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--do-radius);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 
 .cancelBtn:hover {
-  background: #dee2e6;
+  background: var(--do-surface-light);
 }
 
 .submitBtn {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
+  padding: 10px 22px;
+  background: var(--do-primary);
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--do-radius);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 163, 255, 0.28);
+  transition:
+    background 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.18s ease;
 }
 
-.submitBtn:hover {
-  background: #0056b3;
+.submitBtn:hover:not(:disabled) {
+  background: var(--do-primary-strong);
+  transform: translateY(-1px);
+}
+
+.submitBtn:disabled,
+.cancelBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
 }

@@ -24,10 +24,13 @@ export interface UserResponse {
   full_name: string
   username: string
   phone_number?: string
+  level?: string
   is_blocked: boolean
   created_at: string
   org_name?: string
-  roles?: Array<{ name_of_role: string }>
+  region_name?: string
+  district_name?: string
+  roles?: Array<{ id?: string; name_of_role: string }>
 }
 
 export interface UsersListResponse {
@@ -72,7 +75,12 @@ class UsersApiClient {
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({ message: 'Network error' }))
-      throw new Error(error.message || `HTTP ${response.status}`)
+      const message = Array.isArray(error.message) ? error.message.join(', ') : error.message
+      throw new Error(message || `HTTP ${response.status}`)
+    }
+
+    if (response.status === 204) {
+      return undefined as T
     }
 
     return response.json()
@@ -89,17 +97,17 @@ class UsersApiClient {
     })
   }
 
-  async deleteUser(id: string): Promise<void> {
+  async deleteUser(id: string, reason = 'Удалено администратором'): Promise<void> {
     await this.request<void>(`/users/${id}`, {
       method: 'DELETE',
-      body: JSON.stringify({ reason: 'Admin deletion' }),
+      body: JSON.stringify({ delete_reason: reason }),
     })
   }
 
-  async blockUser(id: string): Promise<UserResponse> {
+  async blockUser(id: string, reason = 'Заблокировано администратором'): Promise<UserResponse> {
     return this.request<UserResponse>(`/users/${id}/block`, {
       method: 'POST',
-      body: JSON.stringify({ reason: 'Admin action' }),
+      body: JSON.stringify({ block_reason: reason }),
     })
   }
 
@@ -111,4 +119,3 @@ class UsersApiClient {
 }
 
 export const usersApiClient = new UsersApiClient()
-

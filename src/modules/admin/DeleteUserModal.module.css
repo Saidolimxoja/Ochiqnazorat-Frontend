@@ -1,122 +1,183 @@
 .modalOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: var(--do-bg-scrim, rgba(8, 14, 32, 0.45));
+  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 16px;
+  font-family: var(--do-font);
 }
 
 .modal {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  max-width: 400px;
-  width: 90%;
+  background: #fff;
+  border-radius: var(--do-radius-panel);
+  box-shadow: 0 24px 60px rgba(8, 14, 32, 0.24);
+  max-width: 440px;
+  width: 100%;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #dee2e6;
+  padding: 20px 24px;
+  border-bottom: 1px solid #eef1f5;
 }
 
 .header h2 {
   margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1a1a1a;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--do-text);
 }
 
 .closeBtn {
   background: none;
   border: none;
-  font-size: 24px;
-  color: #6c757d;
+  font-size: 20px;
+  color: var(--do-text-muted);
   cursor: pointer;
   padding: 0;
   width: 32px;
   height: 32px;
+  border-radius: var(--do-radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
 }
 
 .closeBtn:hover {
-  color: #1a1a1a;
+  color: var(--do-text);
+  background: var(--do-surface-light);
 }
 
 .content {
-  padding: 20px;
+  padding: 20px 24px;
 }
 
 .warning {
   margin: 0 0 16px 0;
   font-size: 14px;
-  color: #dc3545;
-  font-weight: 500;
+  color: #b42318;
+  font-weight: 600;
 }
 
 .userInfo {
-  background: #f8f9fa;
-  padding: 12px;
-  border-radius: 4px;
-  margin-bottom: 16px;
+  background: var(--do-surface-light);
+  padding: 14px 16px;
+  border-radius: var(--do-radius);
+  margin-bottom: 18px;
 }
 
 .userInfo p {
-  margin: 8px 0;
+  margin: 6px 0;
   font-size: 14px;
-  color: #212529;
+  color: var(--do-text);
 }
 
 .userInfo strong {
-  color: #495057;
+  color: var(--do-text-secondary);
+  font-weight: 600;
+}
+
+.reasonGroup label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--do-text);
+}
+
+.reasonGroup textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--do-radius);
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--do-text);
+  resize: vertical;
+  box-sizing: border-box;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.reasonGroup textarea::placeholder {
+  color: var(--do-text-muted);
+}
+
+.reasonGroup textarea:focus {
+  outline: none;
+  border-color: var(--do-primary);
+  box-shadow: 0 0 0 3px var(--do-primary-light-100);
+}
+
+.inputError {
+  border-color: #f04438 !important;
+}
+
+.error {
+  display: block;
+  margin-top: 5px;
+  font-size: 12px;
+  color: #d92d20;
 }
 
 .actions {
   display: flex;
   gap: 12px;
   justify-content: flex-end;
-  padding: 16px 20px;
-  border-top: 1px solid #dee2e6;
+  padding: 16px 24px;
+  border-top: 1px solid #eef1f5;
 }
 
 .cancelBtn {
   padding: 10px 20px;
-  background: #e9ecef;
-  color: #212529;
-  border: none;
-  border-radius: 4px;
+  background: #fff;
+  color: var(--do-text);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--do-radius);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 
 .cancelBtn:hover {
-  background: #dee2e6;
+  background: var(--do-surface-light);
 }
 
 .deleteBtn {
   padding: 10px 20px;
-  background: #dc3545;
-  color: white;
+  background: #d92d20;
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--do-radius);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  box-shadow: 0 4px 12px rgba(217, 45, 32, 0.26);
+  transition:
+    background 0.18s ease,
+    transform 0.12s ease;
 }
 
-.deleteBtn:hover {
-  background: #c82333;
+.deleteBtn:hover:not(:disabled) {
+  background: #b42318;
+  transform: translateY(-1px);
+}
+
+.deleteBtn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
 }
