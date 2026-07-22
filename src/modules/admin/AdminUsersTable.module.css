@@ -112,8 +112,15 @@
   display: flex;
   gap: 8px;
   justify-content: flex-end;
+   width: max-content;
 }
 
+
+.table td:last-child,
+.table th:last-child {
+  width: 1%;
+  white-space: nowrap;
+}
 .blockBtn,
 .unblockBtn,
 .deleteBtn {

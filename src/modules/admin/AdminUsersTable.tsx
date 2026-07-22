@@ -27,7 +27,7 @@ export function AdminUsersTable({ users, onDeleteClick, onToggleBlock }: Props) 
         <tbody>
           {users.length === 0 ? (
             <tr>
-              <td colSpan={7} className={styles.emptyRow}>
+              <td colSpan={6} className={styles.emptyRow}>
                 Пользователи не найдены
               </td>
             </tr>
@@ -56,7 +56,9 @@ export function AdminUsersTable({ users, onDeleteClick, onToggleBlock }: Props) 
                   </div>
                 </td>
                 <td>
-                  <span className={`${styles.status} ${user.is_blocked ? styles.blocked : styles.active}`}>
+                  <span
+                    className={`${styles.status} ${user.is_blocked ? styles.blocked : styles.active}`}
+                  >
                     {user.is_blocked ? 'Заблокирован' : 'Активен'}
                   </span>
                 </td>

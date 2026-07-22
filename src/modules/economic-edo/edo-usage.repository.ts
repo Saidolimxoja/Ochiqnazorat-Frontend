@@ -1,6 +1,6 @@
 import type { EdoUsageRow } from './edo-usage.types'
 import { EDO_USAGE_MOCK } from './edo-mock-data'
-import type { HttpClient } from '@/shared/api/http-client'
+import { httpClient, type HttpClient } from '@/shared/api/http-client'
 
 export type EdoUsageRepository = {
   fetchUsageRows(signal?: AbortSignal): Promise<EdoUsageRow[]>
@@ -18,8 +18,8 @@ export function createMockEdoUsageRepository(): EdoUsageRepository {
 }
 
 export function createHttpEdoUsageRepository(
-  client: HttpClient,
-  path: string = '/api/edo/usage',
+  client: HttpClient = httpClient,
+  path: string = '/edo/usage',
 ): EdoUsageRepository {
   return {
     fetchUsageRows(signal) {

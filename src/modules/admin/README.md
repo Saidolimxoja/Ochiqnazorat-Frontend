@@ -37,25 +37,43 @@ src/modules/admin/
 
 ### Типы данных
 
+Актуальные типы — в [`@/shared/api/users-api-client`](../../shared/api/users-api-client.ts):
+
 ```typescript
 interface CreateUserRequest {
-  email: string
-  first_name: string
-  last_name: string
-  phone?: string
-  password: string
+  full_name: string
+  pinfl: string           // 14 цифр
+  birthday_date: string
+  phone_number: string
+  username: string
+  password: string        // минимум 6 символов
+  responsible_module: string
+  level: string           // department | region | district
+  org_id: string          // UUID
+  role_ids: string[]      // UUID[]
+  position_id?: string
+  region_id?: string
+  district_id?: string
+  temporary_modules?: string[]
 }
 
 interface UserResponse {
   id: string
-  email: string
-  first_name: string
-  last_name: string
-  phone?: string
+  full_name: string
+  username: string
+  phone_number?: string
+  level?: string
   is_blocked: boolean
   created_at: string
+  org_name?: string
+  region_name?: string
+  district_name?: string
+  roles?: Array<{ id?: string; name_of_role: string }>
 }
 ```
+
+Справочники для формы создания (организации, роли, регионы, районы, должности)
+загружаются через `referencesApiClient`.
 
 ## Использование
 

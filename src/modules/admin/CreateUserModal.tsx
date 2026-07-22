@@ -232,36 +232,6 @@ export function CreateUserModal({ onClose, onCreateUser, onError }: Props) {
             </div>
 
             <div className={styles.formGroup}>
-              <label htmlFor="birthday_date">Дата рождения *</label>
-              <input
-                id="birthday_date"
-                type="date"
-                value={formData.birthday_date}
-                onChange={(e) => setFormData({ ...formData, birthday_date: e.target.value })}
-                className={errors.birthday_date ? styles.inputError : ''}
-                disabled={loading}
-              />
-              {errors.birthday_date && <span className={styles.error}>{errors.birthday_date}</span>}
-            </div>
-          </div>
-
-          <div className={styles.formRow}>
-            <div className={styles.formGroup}>
-              <label htmlFor="phone_number">Номер телефона *</label>
-              <input
-                id="phone_number"
-                type="tel"
-                value={formData.phone_number}
-                onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
-                className={errors.phone_number ? styles.inputError : ''}
-                disabled={loading}
-                placeholder="+998901234567"
-                maxLength={20}
-              />
-              {errors.phone_number && <span className={styles.error}>{errors.phone_number}</span>}
-            </div>
-
-            <div className={styles.formGroup}>
               <label htmlFor="username">Имя пользователя *</label>
               <input
                 id="username"

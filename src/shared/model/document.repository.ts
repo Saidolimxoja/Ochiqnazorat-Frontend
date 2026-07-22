@@ -1,4 +1,4 @@
-import type { HttpClient } from '@/shared/api/http-client'
+import { httpClient, type HttpClient } from '@/shared/api/http-client'
 import type { DocumentItem } from './document'
 import { MOCK_DOCUMENTS } from './document.mock'
 
@@ -18,8 +18,8 @@ export function createMockDocumentRepository(): DocumentRepository {
 }
 
 export function createHttpDocumentRepository(
-  client: HttpClient,
-  path: string = '/api/documents',
+  client: HttpClient = httpClient,
+  path: string = '/isign/documents',
 ): DocumentRepository {
   return {
     fetchDocuments(signal) {
